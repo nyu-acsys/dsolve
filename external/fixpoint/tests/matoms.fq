@@ -1,0 +1,30 @@
+constraint: env [] 
+	    grd (&& [])
+	    lhs {v : int | [(v = 5)]}
+	    rhs {v : int | [k1]}
+
+constraint: env [] 
+	    grd (&& [])
+	    lhs {v : int | [k1]}
+	    rhs {v : int | [(v < 100)]}
+
+
+constraint: env [] 
+	    grd (&& [])
+	    lhs {v : int | [k2]}
+	    rhs {v : int | [(v > 5)]}
+
+
+constraint: env [] 
+	    grd (&& [])
+	    lhs {v : int | [(v = 15)]}
+	    rhs {v : int | [k2]}
+
+wf: env []
+    reft {v : int | [k1]}
+
+wf: env []
+    reft {v : int | [k2]}
+
+//qualif BOT(v:int) : (0 = 1)
+qualif FOO(v:int): (v [ < ; > ] 10)

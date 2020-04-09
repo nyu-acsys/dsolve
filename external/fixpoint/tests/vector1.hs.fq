@@ -1,0 +1,3810 @@
+//MOVE INTO AN OPTIONAL FILE (cf. liquidc spec)
+//qualif NULLY0(v:ptr)       : nully([v]) = 0 
+//qualif NULLY1(v:ptr)       : nully([v]) = 1 
+//qualif NULLY2(v:int)       : v = nully([~A])
+
+
+//MOVE INTO AN OPTIONAL FILE (cf. liquidc spec)
+qualif NonNull(v:ptr)        : (? (nonnull([v])))
+qualif Null(v:ptr)           : (~ (? (nonnull([v]))))
+qualif EqNull(v:bool,~A:ptr) : ((? v) <=> (? (nonnull([~A]))))
+
+//MOVE INTO AN OPTIONAL FILE (cf. liquidc spec)
+qualif ListEmpty(v:ptr)      : len([v]) = 0 
+qualif ListLen(v:ptr)        : len([v]) >= 0 
+qualif ListNotEmpty(v:ptr)   : len([v]) > 0 
+qualif SameLen(v:ptr,~A:ptr) : len([v]) = len([~A]) 
+qualif EqLen(v:int,~A:ptr)   : v = len([~A]) 
+qualif LenEq(v:ptr,~A:int)   : ~A = len([v]) 
+
+
+qualif VecEmpty(v:ptr)    : vlen([v]) =  0 
+qualif VecNotEmpty(v:ptr) : vlen([v]) >  0
+qualif VecLen(v:ptr)      : vlen([v]) >=  0
+
+qualif EqVlen(v:int,~A:ptr) : v =  vlen([~A]) 
+qualif LeVlen(v:int,~A:ptr) : v <= vlen([~A]) 
+qualif LtVlen(v:int,~A:ptr) : v <  vlen([~A]) 
+
+//BOT: Do not delete EVER!
+
+qualif Bot(v:@(0))    : 0 = 1 
+//qualif False(v:obj)    : 0 = 1 
+//qualif False(v:ptr)    : 0 = 1 
+//qualif False(v:bool)   : 0 = 1 
+
+qualif Lt(v:int,~A:int) : v < ~A
+qualif Le(v:int,~A:int) : v <= ~A
+qualif Gt(v:int,~A:int) : ~A < v
+qualif Ge(v:int,~A:int) : ~A <= v
+qualif PosZ(v:int)      : 0 <= v
+qualif Zero(v:int)      : 0 = v
+//qualif EQ1(v:int)        : v = 1
+qualif True(v:bool)      : (? v) 
+qualif False(v:bool)     : ~ (? v) 
+
+// COMPARING for Ord/Num
+qualif LtP(v:ptr,~A:ptr) : v < ~A
+qualif LeP(v:ptr,~A:ptr) : v <= ~A
+qualif GtP(v:ptr,~A:ptr) : ~A < v
+
+qualif PosZP(v:ptr)      : 0 <= v
+qualif PosP(v:ptr)       : 0 < v
+qualif GeP(v:ptr,~A:ptr) : ~A <= v
+
+
+constant TAG : func(1, [@(0); obj])
+
+
+
+constant len : func(1, [ptr(0); int])
+
+
+
+constant nonnull : func(1, [ptr(0); bool])
+
+
+
+constant nully : func(1, [ptr(0); int])
+
+
+
+constant vlen : func(1, [ptr(0); int])
+
+
+
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]));
+                          (VV = lq#anf#_dM8)]}
+  rhs {VV : ptr(ty_12) | [k_186[lq#tmp#x4:=lq#anf#_dM4]]}
+  id 1 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | []}
+  rhs {VV : int | [k_172[lq#tmp#x4:=lq#anf#_dM4]]}
+  id 2 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       fld0 : {VV : int | []};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | []}
+  rhs {VV : int | [k_173[lq#tmp#x169:=fld0][lq#tmp#x4:=lq#anf#_dM4]]}
+  id 3 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       fld0 : {VV : int | []};
+       fld1 : {VV : int | []};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_14) | []}
+  rhs {VV : ptr(ty_14) | [k_178[lq#tmp#x169:=fld0][lq#tmp#x170:=fld1][lq#tmp#x4:=lq#anf#_dM4]]}
+  id 4 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       fld0 : {VV : int | []};
+       fld1 : {VV : int | []};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_15) | []}
+  rhs {VV : ptr(ty_15) | [k_176[lq#tmp#x169:=fld0][lq#tmp#x170:=fld1][lq#tmp#x4:=lq#anf#_dM4]]}
+  id 5 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       fld0 : {VV : int | []};
+       fld1 : {VV : int | []};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aRJ) | []}
+  rhs {VV : ptr(sort#a_aRJ) | [k_175[lq#tmp#x169:=fld0][lq#tmp#x170:=fld1][lq#tmp#x4:=lq#anf#_dM4]]}
+  id 6 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       fld0 : {VV : int | []};
+       fld1 : {VV : int | []};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_axe) | []}
+  rhs {VV : ptr(sort#a_axe) | [k_177[lq#tmp#x169:=fld0][lq#tmp#x170:=fld1][lq#tmp#x4:=lq#anf#_dM4]]}
+  id 7 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_168[x:=lq#anf#_dM7]]}
+  rhs {VV : int | [k_185[lq#tmp#x4:=lq#anf#_dM4]]}
+  id 8 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_163[x:=lq#anf#_dM7]]}
+  rhs {VV : int | [k_180[lq#tmp#x4:=lq#anf#_dM4]]}
+  id 9 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_166[x:=lq#anf#_dM7]]}
+  rhs {VV : int | [k_183[lq#tmp#x4:=lq#anf#_dM4]]}
+  id 10 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x164 : {VV : int | [k_166[x:=lq#anf#_dM7]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#GHC.Prim.ByteArray#) | [k_167[x:=lq#anf#_dM7]]}
+  rhs {VV : ptr(sort#GHC.Prim.ByteArray#) | [k_184[lq#tmp#x181:=lq#tmp#x164][lq#tmp#x4:=lq#anf#_dM4]]}
+  id 11 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_12) | [k_186]}
+  rhs {VV : ptr(ty_12) | [k_155[lq#tmp#fx4:=lq#tmp#fx1]]}
+  id 12 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_172]}
+  rhs {VV : int | [k_147[lq#tmp#fx4:=lq#tmp#fx1]]}
+  id 13 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x169 : {VV : int | [k_172]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_173]}
+  rhs {VV : int | [k_148[lq#tmp#fx4:=lq#tmp#fx1][lq#tmp#x144:=lq#tmp#x169]]}
+  id 14 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x169 : {VV : int | [k_172]};
+       lq#tmp#x170 : {VV : int | [k_173]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_14) | [k_178]}
+  rhs {VV : ptr(ty_14) | [k_153[lq#tmp#fx4:=lq#tmp#fx1][lq#tmp#x144:=lq#tmp#x169][lq#tmp#x145:=lq#tmp#x170]]}
+  id 15 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x169 : {VV : int | [k_172]};
+       lq#tmp#x170 : {VV : int | [k_173]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_15) | [k_176]}
+  rhs {VV : ptr(ty_15) | [k_151[lq#tmp#fx4:=lq#tmp#fx1][lq#tmp#x144:=lq#tmp#x169][lq#tmp#x145:=lq#tmp#x170]]}
+  id 16 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x169 : {VV : int | [k_172]};
+       lq#tmp#x170 : {VV : int | [k_173]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aRJ) | [k_175]}
+  rhs {VV : ptr(sort#a_aRJ) | [k_150[lq#tmp#fx4:=lq#tmp#fx1][lq#tmp#x144:=lq#tmp#x169][lq#tmp#x145:=lq#tmp#x170]]}
+  id 17 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x169 : {VV : int | [k_172]};
+       lq#tmp#x170 : {VV : int | [k_173]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_axe) | [k_177]}
+  rhs {VV : ptr(sort#a_axe) | [k_152[lq#tmp#fx4:=lq#tmp#fx1][lq#tmp#x144:=lq#tmp#x169][lq#tmp#x145:=lq#tmp#x170]]}
+  id 18 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_185]}
+  rhs {VV : int | [k_154[lq#tmp#fx4:=lq#tmp#fx1]]}
+  id 19 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x5 : {VV : ptr(ty_12) | [k_186]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_128[lq#tmp#fx4:=lq#tmp#fx1][lq#tmp#fx5:=lq#tmp#fx1][v#aKo:=lq#tmp#x5][v1#aKk:=lq#tmp#x5][v2#aKl:=lq#tmp#x5]]}
+  rhs {VV : int | [k_193]}
+  id 20 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x5 : {VV : ptr(ty_12) | [k_186]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | []}
+  rhs {VV : int | [k_188]}
+  id 21 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x5 : {VV : ptr(ty_12) | [k_186]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | []}
+  rhs {VV : int | [k_191]}
+  id 22 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x157 : {VV : int | []};
+       lq#tmp#x5 : {VV : ptr(ty_12) | [k_186]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#GHC.Prim.ByteArray#) | []}
+  rhs {VV : ptr(sort#GHC.Prim.ByteArray#) | [k_192[lq#tmp#x189:=lq#tmp#x157]]}
+  id 23 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | []}
+  rhs {VV : int | [k_168]}
+  id 24 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | []}
+  rhs {VV : int | [k_163]}
+  id 25 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | []}
+  rhs {VV : int | [k_166]}
+  id 26 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#tmp#x160 : {VV : int | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#GHC.Prim.ByteArray#) | []}
+  rhs {VV : ptr(sort#GHC.Prim.ByteArray#) | [k_167[lq#tmp#x164:=lq#tmp#x160]]}
+  id 27 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_16) | [k_155; (VV = v#aKo)]}
+  rhs {VV : ptr(ty_16) | [k_127[lq#tmp#fx5:=lq#tmp#fx4][v1#aKk:=v#aKo]]}
+  id 28 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_147]}
+  rhs {VV : int | [k_119[lq#tmp#fx5:=lq#tmp#fx4][v1#aKk:=v#aKo]]}
+  id 29 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_148]}
+  rhs {VV : int | [k_120[lq#tmp#fx5:=lq#tmp#fx4][lq#tmp#x116:=lq#tmp#x144][v1#aKk:=v#aKo]]}
+  id 30 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_14) | [k_153]}
+  rhs {VV : ptr(ty_14) | [k_125[lq#tmp#fx5:=lq#tmp#fx4][lq#tmp#x116:=lq#tmp#x144][lq#tmp#x117:=lq#tmp#x145][v1#aKk:=v#aKo]]}
+  id 31 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_15) | [k_151]}
+  rhs {VV : ptr(ty_15) | [k_123[lq#tmp#fx5:=lq#tmp#fx4][lq#tmp#x116:=lq#tmp#x144][lq#tmp#x117:=lq#tmp#x145][v1#aKk:=v#aKo]]}
+  id 32 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aRJ) | [k_150]}
+  rhs {VV : ptr(sort#a_aRJ) | [k_122[lq#tmp#fx5:=lq#tmp#fx4][lq#tmp#x116:=lq#tmp#x144][lq#tmp#x117:=lq#tmp#x145][v1#aKk:=v#aKo]]}
+  id 33 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_axe) | [k_152]}
+  rhs {VV : ptr(sort#a_axe) | [k_124[lq#tmp#fx5:=lq#tmp#fx4][lq#tmp#x116:=lq#tmp#x144][lq#tmp#x117:=lq#tmp#x145][v1#aKk:=v#aKo]]}
+  id 34 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKQ) | [k_154]}
+  rhs {VV : ptr(sort#t_aKQ) | [k_126[lq#tmp#fx5:=lq#tmp#fx4][v1#aKk:=v#aKo]]}
+  id 35 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_16) | [k_155; (VV = v#aKo)]}
+  rhs {VV : ptr(ty_16) | [k_115[lq#tmp#fx5:=lq#tmp#fx4]]}
+  id 36 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_147]}
+  rhs {VV : int | [k_107[lq#tmp#fx5:=lq#tmp#fx4]]}
+  id 37 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_148]}
+  rhs {VV : int | [k_108[lq#tmp#fx5:=lq#tmp#fx4][lq#tmp#x104:=lq#tmp#x144]]}
+  id 38 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_14) | [k_153]}
+  rhs {VV : ptr(ty_14) | [k_113[lq#tmp#fx5:=lq#tmp#fx4][lq#tmp#x104:=lq#tmp#x144][lq#tmp#x105:=lq#tmp#x145]]}
+  id 39 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_15) | [k_151]}
+  rhs {VV : ptr(ty_15) | [k_111[lq#tmp#fx5:=lq#tmp#fx4][lq#tmp#x104:=lq#tmp#x144][lq#tmp#x105:=lq#tmp#x145]]}
+  id 40 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aRJ) | [k_150]}
+  rhs {VV : ptr(sort#a_aRJ) | [k_110[lq#tmp#fx5:=lq#tmp#fx4][lq#tmp#x104:=lq#tmp#x144][lq#tmp#x105:=lq#tmp#x145]]}
+  id 41 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_axe) | [k_152]}
+  rhs {VV : ptr(sort#a_axe) | [k_112[lq#tmp#fx5:=lq#tmp#fx4][lq#tmp#x104:=lq#tmp#x144][lq#tmp#x105:=lq#tmp#x145]]}
+  id 42 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       v#aKo : {VV : ptr(ty_16) | [k_155]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKQ) | [k_154]}
+  rhs {VV : ptr(sort#t_aKQ) | [k_114[lq#tmp#fx5:=lq#tmp#fx4]]}
+  id 43 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKK) | [k_143[lq#tmp#x4:=lq#anf#_dLZ][lq#tmp#x6:=lq#anf#_dM3]]}
+  rhs {VV : ptr(sort#t_aKK) | [k_128]}
+  id 44 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_139[lq#tmp#x4:=lq#anf#_dLZ]]}
+  rhs {VV : int | [k_132]}
+  id 45 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       lq#tmp#x138 : {VV : int | [k_139[lq#tmp#x4:=lq#anf#_dLZ]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKK) | [k_141[lq#tmp#x4:=lq#anf#_dLZ]]}
+  rhs {VV : ptr(sort#t_aKK) | [k_134[i#aKn:=lq#tmp#x138]]}
+  id 46 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       lq#tmp#x138 : {VV : int | [k_139[lq#tmp#x4:=lq#anf#_dLZ]]};
+       lq#tmp#x140 : {VV : ptr(sort#t_aKK) | [k_141[lq#tmp#x4:=lq#anf#_dLZ]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKK) | [k_135[i#aKn:=lq#tmp#x138][lq#tmp#x133:=lq#tmp#x140]]}
+  rhs {VV : ptr(sort#t_aKK) | [k_142[lq#tmp#x4:=lq#anf#_dLZ]]}
+  id 47 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_70[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW][lq#tmp#x66:=lq#anf#_dLY]]}
+  rhs {VV : int | [k_139]}
+  id 48 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       lq#tmp#x69 : {VV : int | [k_70[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW][lq#tmp#x66:=lq#anf#_dLY]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKK) | [k_131[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW][lq#tmp#x66:=lq#anf#_dLY];
+                               k_72[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW][lq#tmp#x66:=lq#anf#_dLY]]}
+  rhs {VV : ptr(sort#t_aKK) | [k_141[lq#tmp#x138:=lq#tmp#x69]]}
+  id 49 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       lq#tmp#x69 : {VV : int | [k_70[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW][lq#tmp#x66:=lq#anf#_dLY]]};
+       lq#tmp#x71 : {VV : ptr(sort#t_aKK) | [k_131[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW][lq#tmp#x66:=lq#anf#_dLY];
+                                             k_72[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW][lq#tmp#x66:=lq#anf#_dLY]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKK) | [k_142[lq#tmp#x138:=lq#tmp#x69][lq#tmp#x140:=lq#tmp#x71]]}
+  rhs {VV : ptr(sort#t_aKK) | [k_131[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW][lq#tmp#x66:=lq#anf#_dLY];
+                               k_73[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW][lq#tmp#x66:=lq#anf#_dLY]]}
+  id 50 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKK) | [k_131[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW][lq#tmp#x66:=lq#anf#_dLY][lq#tmp#x68:=lq#tmp#x5];
+                               k_74[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW][lq#tmp#x66:=lq#anf#_dLY][lq#tmp#x68:=lq#tmp#x5]]}
+  rhs {VV : ptr(sort#t_aKK) | [k_143]}
+  id 51 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKn : {VV : int | [k_132]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       lq#anf#_dM0 : {VV : ptr(sort#t_aKK) | [k_136[lq#tmp#fx10:=i#aKn][x:=v1#aKk]]};
+       lq#anf#_dM1 : {VV : ptr(sort#t_aKK) | [k_137[lq#tmp#fx10:=i#aKn][x:=v2#aKl]]};
+       lq#anf#_dM2 : {VV : ptr(sort#t_aKK) | [(&& [(lq#anf#_dM0 >= 0);
+                                                   (lq#anf#_dM1 >= 0)] => (VV >= 0))]};
+       lq#tmp#x133 : {VV : ptr(sort#t_aKK) | [k_134]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKK) | [(VV = (lq#anf#_dM2 + lq#tmp#x133))]}
+  rhs {VV : ptr(sort#t_aKK) | [k_135]}
+  id 52 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKn : {VV : int | [k_132]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       lq#anf#_dM0 : {VV : ptr(sort#t_aKK) | [k_136[lq#tmp#fx10:=i#aKn][x:=v1#aKk]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_132; (VV = i#aKn)]}
+  rhs {VV : int | [&& [(0 <= VV); (VV < vlen([v2#aKl]))]]}
+  id 53 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKn : {VV : int | [k_132]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       lq#anf#_dM0 : {VV : ptr(sort#t_aKK) | [k_136[lq#tmp#fx10:=i#aKn][x:=v1#aKk]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKK) | [k_126]}
+  rhs {VV : ptr(sort#t_aKK) | [k_137]}
+  id 54 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKn : {VV : int | [k_132]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [k_132; (VV = i#aKn)]}
+  rhs {VV : int | [&& [(0 <= VV); (VV < vlen([v1#aKk]))]]}
+  id 55 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKn : {VV : int | [k_132]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKK) | [k_114]}
+  rhs {VV : ptr(sort#t_aKK) | [k_136]}
+  id 56 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX);
+                               (VV = lq#anf#_dLY)]}
+  rhs {VV : ptr(sort#t_aKK) | [k_131[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW];
+                               k_67[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV][lq#tmp#x64:=lq#anf#_dLW]]}
+  id 57 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [(VV = vlen([v1#aKk])); (VV = lq#anf#_dLW)]}
+  rhs {VV : int | [k_65[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9][lq#tmp#x62:=lq#anf#_dLV]]}
+  id 58 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [(VV = (0  :  int)); (VV = lq#anf#_dLV)]}
+  rhs {VV : int | [k_63[lq#tmp#fx6:=lq#tmp#fx7][lq#tmp#fx8:=lq#tmp#fx9]]}
+  id 59 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKK) | [k_114]}
+  rhs {VV : ptr(sort#t_aKK) | [k_129]}
+  id 60 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [(VV = (100  :  int)); (VV = lq#anf#_dLU)]}
+  rhs {VV : int | [k_88[i#aKp:=lq#anf#_dLT][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]}
+  id 61 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : int | [(VV = (0  :  int)); (VV = lq#anf#_dLT)]}
+  rhs {VV : int | [k_87[lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]}
+  id 62 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_18) | [k_100[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR][lq#tmp#x68:=lq#anf#_dLS];
+                          k_74[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR][lq#tmp#x68:=lq#anf#_dLS]]}
+  rhs {VV : ptr(ty_18) | [k_93]}
+  id 63 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_12) | [k_98[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR][lq#tmp#x68:=lq#anf#_dLS]]}
+  rhs {VV : ptr(sort#a_12) | [k_91]}
+  id 64 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aL3) | [k_99[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR][lq#tmp#x68:=lq#anf#_dLS]]}
+  rhs {VV : ptr(sort#a_aL3) | [k_92]}
+  id 65 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aL3) | [k_70[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR]]}
+  rhs {VV : ptr(sort#a_aL3) | [k_95]}
+  id 66 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       lq#tmp#x69 : {VV : ptr(sort#a_aL3) | [k_70[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aL3) | [k_99[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR]]}
+  rhs {VV : ptr(sort#a_aL3) | [k_95[y:=lq#tmp#x69]]}
+  id 67 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       lq#tmp#x69 : {VV : ptr(sort#a_aL3) | [k_70[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR]]};
+       lq#tmp#x71 : {VV : ptr(ty_18) | [k_100[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR];
+                                        k_72[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_18) | [((? nonnull([VV])) <=> true);
+                          (nully([VV]) = 1);
+                          (len([VV]) = (1 + len([lq#tmp#x71])))]}
+  rhs {VV : ptr(ty_18) | [k_100[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR];
+                          k_73[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR]]}
+  id 68 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       lq#tmp#x69 : {VV : ptr(sort#a_aL3) | [k_70[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR]]};
+       lq#tmp#x71 : {VV : ptr(ty_18) | [k_100[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR];
+                                        k_72[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aL3) | [k_95[y:=lq#tmp#x69][ys:=lq#tmp#x71]]}
+  rhs {VV : ptr(sort#a_aL3) | [k_99[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq][lq#tmp#x66:=lq#anf#_dLR]]}
+  id 69 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                          (nully([VV]) = 0);
+                          (len([VV]) = 0);
+                          (VV = lq#anf#_dLR)]}
+  rhs {VV : ptr(ty_18) | [k_100[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq];
+                          k_67[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq]]}
+  id 70 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aL3) | [k_94]}
+  rhs {VV : ptr(sort#a_aL3) | [k_99[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp][lq#tmp#x64:=j#aKq]]}
+  id 71 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aL3) | [k_88; (VV = j#aKq)]}
+  rhs {VV : ptr(sort#a_aL3) | [k_65[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2][lq#tmp#x62:=i#aKp]]}
+  id 72 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aL3) | [k_87; (VV = i#aKp)]}
+  rhs {VV : ptr(sort#a_aL3) | [k_63[lq#tmp#fx6:=lq#tmp#fx0][lq#tmp#fx8:=lq#tmp#fx2]]}
+  id 73 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aKw) | [k_63]}
+  rhs {VV : ptr(sort#a_aKw) | [k_75]}
+  id 74 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aKw) | [k_65]}
+  rhs {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lq#tmp#x62]]}
+  id 75 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       lq#tmp#x64 : {VV : ptr(sort#a_aKw) | [k_65]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKx) | [k_67]}
+  rhs {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=lq#tmp#x64][lo#aKg:=lq#tmp#x62]]}
+  id 76 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       lq#tmp#x64 : {VV : ptr(sort#a_aKw) | [k_65]};
+       lq#tmp#x66 : {VV : ptr(sort#t_aKx) | [k_67]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aKw) | [k_79[acc#aKi:=lq#tmp#x66][hi#aKh:=lq#tmp#x64][lo#aKg:=lq#tmp#x62]]}
+  rhs {VV : ptr(sort#a_aKw) | [k_70]}
+  id 77 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       lq#tmp#x64 : {VV : ptr(sort#a_aKw) | [k_65]};
+       lq#tmp#x66 : {VV : ptr(sort#t_aKx) | [k_67]};
+       lq#tmp#x78 : {VV : ptr(sort#a_aKw) | [k_79[acc#aKi:=lq#tmp#x66][hi#aKh:=lq#tmp#x64][lo#aKg:=lq#tmp#x62]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKx) | [k_81[acc#aKi:=lq#tmp#x66][hi#aKh:=lq#tmp#x64][lo#aKg:=lq#tmp#x62]]}
+  rhs {VV : ptr(sort#t_aKx) | [k_72[lq#tmp#x69:=lq#tmp#x78]]}
+  id 78 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       lq#tmp#x64 : {VV : ptr(sort#a_aKw) | [k_65]};
+       lq#tmp#x66 : {VV : ptr(sort#t_aKx) | [k_67]};
+       lq#tmp#x78 : {VV : ptr(sort#a_aKw) | [k_79[acc#aKi:=lq#tmp#x66][hi#aKh:=lq#tmp#x64][lo#aKg:=lq#tmp#x62]]};
+       lq#tmp#x80 : {VV : ptr(sort#t_aKx) | [k_81[acc#aKi:=lq#tmp#x66][hi#aKh:=lq#tmp#x64][lo#aKg:=lq#tmp#x62]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKx) | [k_73[lq#tmp#x69:=lq#tmp#x78][lq#tmp#x71:=lq#tmp#x80]]}
+  rhs {VV : ptr(sort#t_aKx) | [k_82[acc#aKi:=lq#tmp#x66][hi#aKh:=lq#tmp#x64][lo#aKg:=lq#tmp#x62]]}
+  id 79 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       lq#tmp#x64 : {VV : ptr(sort#a_aKw) | [k_65]};
+       lq#tmp#x66 : {VV : ptr(sort#t_aKx) | [k_67]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKx) | [k_83[acc#aKi:=lq#tmp#x66][f#aKj:=lq#tmp#x68][hi#aKh:=lq#tmp#x64][lo#aKg:=lq#tmp#x62]]}
+  rhs {VV : ptr(sort#t_aKx) | [k_74]}
+  id 80 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (? VV)]};
+       lq#anf#_dLN : {VV : int | [(VV = (1  :  int))]};
+       lq#anf#_dLO : {VV : ptr(sort#a_aKw) | [(VV = lq#anf#_dLN)]};
+       lq#anf#_dLP : {VV : ptr(sort#a_aKw) | [(VV = (lo#aKg + lq#anf#_dLO))]};
+       lq#anf#_dLQ : {VV : ptr(sort#t_aKx) | [k_82[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg][lq#tmp#x78:=lo#aKg][lq#tmp#x80:=acc#aKi]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKx) | [k_83[acc#aKi:=lq#anf#_dLQ][f#aKj:=f#aKj][hi#aKh:=hi#aKh][lo#aKg:=lq#anf#_dLP]]}
+  rhs {VV : ptr(sort#t_aKx) | [k_83[acc#aKi:=acc#aKi][f#aKj:=f#aKj][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]}
+  id 81 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (? VV)]};
+       lq#anf#_dLN : {VV : int | [(VV = (1  :  int))]};
+       lq#anf#_dLO : {VV : ptr(sort#a_aKw) | [(VV = lq#anf#_dLN)]};
+       lq#anf#_dLP : {VV : ptr(sort#a_aKw) | [(VV = (lo#aKg + lq#anf#_dLO))]};
+       lq#anf#_dLQ : {VV : ptr(sort#t_aKx) | [k_82[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg][lq#tmp#x78:=lo#aKg][lq#tmp#x80:=acc#aKi]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aKw) | [k_79[acc#aKi:=lq#anf#_dLQ][hi#aKh:=hi#aKh][lo#aKg:=lq#anf#_dLP]]}
+  rhs {VV : ptr(sort#a_aKw) | [k_79[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]}
+  id 82 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (? VV)]};
+       lq#anf#_dLN : {VV : int | [(VV = (1  :  int))]};
+       lq#anf#_dLO : {VV : ptr(sort#a_aKw) | [(VV = lq#anf#_dLN)]};
+       lq#anf#_dLP : {VV : ptr(sort#a_aKw) | [(VV = (lo#aKg + lq#anf#_dLO))]};
+       lq#anf#_dLQ : {VV : ptr(sort#t_aKx) | [k_82[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg][lq#tmp#x78:=lo#aKg][lq#tmp#x80:=acc#aKi]]};
+       lq#tmp#x78 : {VV : ptr(sort#a_aKw) | [k_79[acc#aKi:=lq#anf#_dLQ][hi#aKh:=hi#aKh][lo#aKg:=lq#anf#_dLP]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKx) | [k_81[acc#aKi:=lq#anf#_dLQ][hi#aKh:=hi#aKh][lo#aKg:=lq#anf#_dLP]]}
+  rhs {VV : ptr(sort#t_aKx) | [k_81[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg][lq#tmp#x78:=lq#tmp#x78]]}
+  id 83 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (? VV)]};
+       lq#anf#_dLN : {VV : int | [(VV = (1  :  int))]};
+       lq#anf#_dLO : {VV : ptr(sort#a_aKw) | [(VV = lq#anf#_dLN)]};
+       lq#anf#_dLP : {VV : ptr(sort#a_aKw) | [(VV = (lo#aKg + lq#anf#_dLO))]};
+       lq#anf#_dLQ : {VV : ptr(sort#t_aKx) | [k_82[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg][lq#tmp#x78:=lo#aKg][lq#tmp#x80:=acc#aKi]]};
+       lq#tmp#x78 : {VV : ptr(sort#a_aKw) | [k_79[acc#aKi:=lq#anf#_dLQ][hi#aKh:=hi#aKh][lo#aKg:=lq#anf#_dLP]]};
+       lq#tmp#x80 : {VV : ptr(sort#t_aKx) | [k_81[acc#aKi:=lq#anf#_dLQ][hi#aKh:=hi#aKh][lo#aKg:=lq#anf#_dLP]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKx) | [k_82[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg][lq#tmp#x78:=lq#tmp#x78][lq#tmp#x80:=lq#tmp#x80]]}
+  rhs {VV : ptr(sort#t_aKx) | [k_82[acc#aKi:=lq#anf#_dLQ][hi#aKh:=hi#aKh][lo#aKg:=lq#anf#_dLP]]}
+  id 84 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (? VV)]};
+       lq#anf#_dLN : {VV : int | [(VV = (1  :  int))]};
+       lq#anf#_dLO : {VV : ptr(sort#a_aKw) | [(VV = lq#anf#_dLN)]};
+       lq#anf#_dLP : {VV : ptr(sort#a_aKw) | [(VV = (lo#aKg + lq#anf#_dLO))]};
+       lq#anf#_dLQ : {VV : ptr(sort#t_aKx) | [k_82[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg][lq#tmp#x78:=lo#aKg][lq#tmp#x80:=acc#aKi]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKx) | [k_82[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg][lq#tmp#x78:=lo#aKg][lq#tmp#x80:=acc#aKi];
+                               (VV = lq#anf#_dLQ)]}
+  rhs {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lq#anf#_dLP]]}
+  id 85 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (? VV)]};
+       lq#anf#_dLN : {VV : int | [(VV = (1  :  int))]};
+       lq#anf#_dLO : {VV : ptr(sort#a_aKw) | [(VV = lq#anf#_dLN)]};
+       lq#anf#_dLP : {VV : ptr(sort#a_aKw) | [(VV = (lo#aKg + lq#anf#_dLO))]};
+       lq#anf#_dLQ : {VV : ptr(sort#t_aKx) | [k_82[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg][lq#tmp#x78:=lo#aKg][lq#tmp#x80:=acc#aKi]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]; (VV = hi#aKh)]}
+  rhs {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lq#anf#_dLP]]}
+  id 86 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (? VV)]};
+       lq#anf#_dLN : {VV : int | [(VV = (1  :  int))]};
+       lq#anf#_dLO : {VV : ptr(sort#a_aKw) | [(VV = lq#anf#_dLN)]};
+       lq#anf#_dLP : {VV : ptr(sort#a_aKw) | [(VV = (lo#aKg + lq#anf#_dLO))]};
+       lq#anf#_dLQ : {VV : ptr(sort#t_aKx) | [k_82[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg][lq#tmp#x78:=lo#aKg][lq#tmp#x80:=acc#aKi]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aKw) | [(VV = (lo#aKg + lq#anf#_dLO));
+                               (VV = lq#anf#_dLP)]}
+  rhs {VV : ptr(sort#a_aKw) | [k_75]}
+  id 87 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (? VV)]};
+       lq#anf#_dLN : {VV : int | [(VV = (1  :  int))]};
+       lq#anf#_dLO : {VV : ptr(sort#a_aKw) | [(VV = lq#anf#_dLN)]};
+       lq#anf#_dLP : {VV : ptr(sort#a_aKw) | [(VV = (lo#aKg + lq#anf#_dLO))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg];
+                               (VV = acc#aKi)]}
+  rhs {VV : ptr(sort#t_aKx) | [k_81[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg][lq#tmp#x78:=lo#aKg]]}
+  id 88 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (? VV)]};
+       lq#anf#_dLN : {VV : int | [(VV = (1  :  int))]};
+       lq#anf#_dLO : {VV : ptr(sort#a_aKw) | [(VV = lq#anf#_dLN)]};
+       lq#anf#_dLP : {VV : ptr(sort#a_aKw) | [(VV = (lo#aKg + lq#anf#_dLO))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aKw) | [k_75; (VV = lo#aKg)]}
+  rhs {VV : ptr(sort#a_aKw) | [k_79[acc#aKi:=acc#aKi][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]}
+  id 89 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (~ ((? VV)))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#t_aKx) | [k_77[ds_dLK:=realWorld##0o][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg];
+                               (VV = acc#aKi)]}
+  rhs {VV : ptr(sort#t_aKx) | [k_83[acc#aKi:=acc#aKi][f#aKj:=f#aKj][hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]}
+  id 90 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (~ ((? VV)))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(ty_13) | [(VV = realWorld##0o)]}
+  rhs {VV : ptr(ty_13) | [k_86]}
+  id 91 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (~ ((? VV)))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#GHC.Prim.RealWorld) | []}
+  rhs {VV : ptr(sort#GHC.Prim.RealWorld) | [k_85]}
+  id 92 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]; (VV = hi#aKh)]}
+  rhs {VV : ptr(sort#a_aKw) | [k_84[lq#tmp#fx10:=lq#tmp#fx8][x:=lo#aKg]]}
+  id 93 
+
+
+constraint:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  grd true
+  lhs {VV : ptr(sort#a_aKw) | [k_75; (VV = lo#aKg)]}
+  rhs {VV : ptr(sort#a_aKw) | [k_84[lq#tmp#fx10:=lq#tmp#fx8]]}
+  id 94 
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_193]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_188]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_191]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x189 : {VV : int | [k_191]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#GHC.Prim.ByteArray#) | [k_192]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_12) | [k_186]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_172]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x169 : {VV : int | [k_172]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_173]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x169 : {VV : int | [k_172]};
+       lq#tmp#x170 : {VV : int | [k_173]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_14) | [k_178]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x169 : {VV : int | [k_172]};
+       lq#tmp#x170 : {VV : int | [k_173]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_15) | [k_176]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x169 : {VV : int | [k_172]};
+       lq#tmp#x170 : {VV : int | [k_173]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aRJ) | [k_175]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x169 : {VV : int | [k_172]};
+       lq#tmp#x170 : {VV : int | [k_173]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_axe) | [k_177]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_185]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_180]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_183]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#anf#_dM8 : {VV : ptr(ty_12) | [(vlen([VV]) = len([lq#anf#_dM7]))]};
+       lq#tmp#x181 : {VV : int | [k_183]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#GHC.Prim.ByteArray#) | [k_184]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_168]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_163]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_166]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM5 : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dM6 : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dM7 : {VV : ptr(ty_11) | []};
+       lq#tmp#x164 : {VV : int | [k_166]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#GHC.Prim.ByteArray#) | [k_167]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_16) | [k_155]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_147]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_148]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_14) | [k_153]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_15) | [k_151]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aRJ) | [k_150]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x144 : {VV : int | [k_147]};
+       lq#tmp#x145 : {VV : int | [k_148]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_axe) | [k_152]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKQ : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKQ) | [k_154]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_17) | [k_115]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_107]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x104 : {VV : int | [k_107]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_108]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x104 : {VV : int | [k_107]};
+       lq#tmp#x105 : {VV : int | [k_108]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_14) | [k_113]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x104 : {VV : int | [k_107]};
+       lq#tmp#x105 : {VV : int | [k_108]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_15) | [k_111]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x104 : {VV : int | [k_107]};
+       lq#tmp#x105 : {VV : int | [k_108]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aRJ) | [k_110]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x104 : {VV : int | [k_107]};
+       lq#tmp#x105 : {VV : int | [k_108]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_axe) | [k_112]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_114]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_17) | [k_127]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_119]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x116 : {VV : int | [k_119]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_120]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x116 : {VV : int | [k_119]};
+       lq#tmp#x117 : {VV : int | [k_120]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_14) | [k_125]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x116 : {VV : int | [k_119]};
+       lq#tmp#x117 : {VV : int | [k_120]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_15) | [k_123]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x116 : {VV : int | [k_119]};
+       lq#tmp#x117 : {VV : int | [k_120]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aRJ) | [k_122]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#tmp#x116 : {VV : int | [k_119]};
+       lq#tmp#x117 : {VV : int | [k_120]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_axe) | [k_124]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_126]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_143]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_139]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       lq#tmp#x138 : {VV : int | [k_139]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_141]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       lq#tmp#x138 : {VV : int | [k_139]};
+       lq#tmp#x140 : {VV : ptr(sort#t_aKK) | [k_141]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_142]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : int | [k_132]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKn : {VV : int | [k_132]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       lq#anf#_dM0 : {VV : ptr(sort#t_aKK) | [k_136[lq#tmp#fx10:=i#aKn][x:=v1#aKk]]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_137]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKn : {VV : int | [k_132]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_136]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKn : {VV : int | [k_132]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_134]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKn : {VV : int | [k_132]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       lq#tmp#x133 : {VV : ptr(sort#t_aKK) | [k_134]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_135]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLW : {VV : int | [(VV = vlen([v1#aKk]))]};
+       lq#anf#_dLX : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLY : {VV : ptr(sort#t_aKK) | [(VV = lq#anf#_dLX)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_131]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       lq#anf#_dLV : {VV : int | [(VV = (0  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_129]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLT : {VV : int | [(VV = (0  :  int))]};
+       lq#anf#_dLU : {VV : int | [(VV = (100  :  int))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       nums#rsW : {VV : ptr(ty_11) | [k_93[i#aKp:=lq#anf#_dLT][j#aKq:=lq#anf#_dLU][lq#tmp#fx0:=lq#tmp#fx1][lq#tmp#fx2:=lq#tmp#fx3]]};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#t_aKK : {VV : num | []};
+       v1#aKk : {VV : ptr(ty_17) | [k_115]};
+       v2#aKl : {VV : ptr(ty_17) | [k_127]};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKK) | [k_128]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aL3) | [k_87]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aL3) | [k_88]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_18) | [k_100]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_12) | [k_98]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aL3) | [k_99]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#anf#_dLR : {VV : ptr(ty_18) | [((? nonnull([VV])) <=> false);
+                                         (nully([VV]) = 0);
+                                         (len([VV]) = 0)]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aL3) | [k_95]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aL3) | [k_94]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_18) | [k_93]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_12) | [k_91]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       i#aKp : {VV : ptr(sort#a_aL3) | [k_87]};
+       j#aKq : {VV : ptr(sort#a_aL3) | [k_88]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aL3 : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aL3) | [k_92]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aKw) | [k_75]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aKw) | [k_76]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKx) | [k_77]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aKw) | [k_79]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#tmp#x78 : {VV : ptr(sort#a_aKw) | [k_79]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKx) | [k_81]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#tmp#x78 : {VV : ptr(sort#a_aKw) | [k_79]};
+       lq#tmp#x80 : {VV : ptr(sort#t_aKx) | [k_81]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKx) | [k_82]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKx) | [k_83]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (~ ((? VV)))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(ty_13) | [k_86]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       lq#anf#_dLL : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh))]};
+       lq#anf#_dLM : {VV : bool | [((? VV) <=> (lo#aKg < hi#aKh));
+                                   (VV = lq#anf#_dLL);
+                                   (~ ((? VV)))]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#GHC.Prim.RealWorld) | [k_85]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       acc#aKi : {VV : ptr(sort#t_aKx) | [k_77[hi#aKh:=hi#aKh][lo#aKg:=lo#aKg]]};
+       hi#aKh : {VV : ptr(sort#a_aKw) | [k_76[lo#aKg:=lo#aKg]]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lo#aKg : {VV : ptr(sort#a_aKw) | [k_75]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aKw) | [k_84]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aKw) | [k_63]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aKw) | [k_65]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       lq#tmp#x64 : {VV : ptr(sort#a_aKw) | [k_65]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKx) | [k_67]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       lq#tmp#x64 : {VV : ptr(sort#a_aKw) | [k_65]};
+       lq#tmp#x66 : {VV : ptr(sort#t_aKx) | [k_67]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#a_aKw) | [k_70]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       lq#tmp#x64 : {VV : ptr(sort#a_aKw) | [k_65]};
+       lq#tmp#x66 : {VV : ptr(sort#t_aKx) | [k_67]};
+       lq#tmp#x69 : {VV : ptr(sort#a_aKw) | [k_70]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKx) | [k_72]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       lq#tmp#x64 : {VV : ptr(sort#a_aKw) | [k_65]};
+       lq#tmp#x66 : {VV : ptr(sort#t_aKx) | [k_67]};
+       lq#tmp#x69 : {VV : ptr(sort#a_aKw) | [k_70]};
+       lq#tmp#x71 : {VV : ptr(sort#t_aKx) | [k_72]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKx) | [k_73]}
+  
+
+
+wf:
+  env [False#69 : {VV : bool | [(~ ((? VV)))]};
+       TAG : {VV : func(1, [@(0); obj]) | []};
+       True#6v : {VV : bool | [(? VV)]};
+       len : {VV : func(1, [ptr(0); int]) | []};
+       lq#tmp#x62 : {VV : ptr(sort#a_aKw) | [k_63]};
+       lq#tmp#x64 : {VV : ptr(sort#a_aKw) | [k_65]};
+       lq#tmp#x66 : {VV : ptr(sort#t_aKx) | [k_67]};
+       nonnull : {VV : func(1, [ptr(0); bool]) | []};
+       nully : {VV : func(1, [ptr(0); int]) | []};
+       realWorld##0o : {VV : ptr(ty_13) | []};
+       sort#a_aKw : {VV : num | []};
+       vlen : {VV : func(1, [ptr(0); int]) | []}]
+  reft {VV : ptr(sort#t_aKx) | [k_74]}
+  
+
