@@ -31,3 +31,9 @@ parsing/parser.output
 utils/config.ml
 liquid.opt
 liquid.byte
+external/fixpoint/fixpoint.native
+external/ocamlgraph/Makefile
+external/ocamlgraph/config.status
+external/ocamlgraph/src/version.ml
+external/ocamlgraph/autom4te.cache
+external/ocamlgraph/config.log
