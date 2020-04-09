@@ -139,9 +139,9 @@ module Prover : PROVER =
       | Func (t :: []) -> type_to_frame me t
       | Func (t :: ts) ->
         (try
-          List.assoc t (Misc.list_assoc_flip me.frtymap)
+          List.assoc t (FixMisc.list_assoc_flip me.frtymap)
         with Not_found -> F.Farrow(F.fresh_binder (), type_to_frame me t, type_to_frame me (Func ts)))
-      | t -> List.assoc t (Misc.list_assoc_flip me.frtymap)
+      | t -> List.assoc t (FixMisc.list_assoc_flip me.frtymap)
 
     let rec z3VarType me = function
       | Int -> me.tint
@@ -151,7 +151,7 @@ module Prover : PROVER =
       | Func _ -> z3VarType me (Unint ("fun"))
 
     let z3VarType me t =
-      Misc.do_memo me.tydeclt (fun () -> z3VarType me t) () t
+      FixMisc.do_memo me.tydeclt (fun () -> z3VarType me t) () t
 
     let rec transl_type me = function
       | Parsetree.Pprover_abs s ->
@@ -178,7 +178,7 @@ module Prover : PROVER =
       try frame_to_type me fr
         with Not_found -> unint
 
-    let is_select = Misc.is_prefix "SELECT_0"
+    let is_select = FixMisc.is_prefix "SELECT_0"
     let select = Path.mk_persistent "SELECT"
     let select_type = Func [Int; Int]
  
@@ -224,14 +224,16 @@ module Prover : PROVER =
       () (Fun (p,k))
 
     let rec cast env me ast (t, t') =
-      if (t, t') = ("bool", "int") then z3App env me iofb [ast] else
-      if (t, t') = ("int", "bool") then z3App env me bofi [ast] else
-        assert false
+      if (t, t') = ("Bool", "Int") then z3App env me iofb [ast] else
+      if (t, t') = ("Int", "Bool") then z3App env me bofi [ast] else
+      (print_endline t;
+      print_endline t';
+        assert false)
 
     and z3Cast env me = function
       | (a :: sa, f :: fs) -> 
         let (t, t') = (Z3.get_sort me.c a, z3VarType me f) in
-        let (st, st') = Misc.map_pair (Z3.sort_to_string me.c) (t, t') in
+        let (st, st') = FixMisc.map_pair (Z3.sort_to_string me.c) (t, t') in
         let t = if st = st' then a else (cast env me a (st, st')) in
           t :: (z3Cast env me (sa, fs))
       | ([], x :: []) -> []
@@ -432,7 +434,7 @@ module Prover : PROVER =
       !nb_z3_set !nb_z3_push !nb_z3_pop !nb_z3_unsat
 
     let _ = 
-      let (x, y) = Misc.map_pair Path.mk_ident ("x", "y") in
+      let (x, y) = FixMisc.map_pair Path.mk_ident ("x", "y") in
       let bol = Parsetree.Pprover_abs "bool" in
       let itn = Parsetree.Pprover_abs "int" in
       let func s x = P.FunApp(s, [P.Var x]) in

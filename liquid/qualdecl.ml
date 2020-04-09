@@ -78,7 +78,7 @@ let ck_consistent patpred pred =
 let rec transl_patpred f g env (v, nv) tymap constset p =
   let untyped = ref false in
   let vm = ref [] in
-  let lookup x y = if Misc.maybe_bool x then Misc.maybe x else y in
+  let lookup x y = if FixMisc.maybe_bool x then FixMisc.maybe x else y in
   let rec transl_expr_rec pe =
     match pe.ppredpatexp_desc with
       | Ppredpatexp_int (n) ->
@@ -88,7 +88,7 @@ let rec transl_patpred f g env (v, nv) tymap constset p =
       | Ppredpatexp_var (y) ->
           let lookup = lookup f (fun y -> map_key_by_name (fun p -> Path.name p = y) env) in
           let y = 
-            Misc.fast_flap 
+            FixMisc.fast_flap 
               (fun y -> let y = Common.l_to_s y in if y = v then [Var nv] else List.rev_map (fun x -> Var x) (lookup y)) y in
           (match y with [] -> failwith "pattern instantiation empty" | _ -> y)
       | Ppredpatexp_mvar (y) ->
@@ -104,34 +104,34 @@ let rec transl_patpred f g env (v, nv) tymap constset p =
           let es = List.rev_map transl_expr_rec es in
           let fnc' = List.hd ((lookup g (fun x -> Le.find_all_paths x env))
           (Common.l_to_s fnc)) in
-          List.rev_map (fun e -> FunApp (fnc', e)) (Misc.rev_perms es)
+          List.rev_map (fun e -> FunApp (fnc', e)) (FixMisc.rev_perms es)
       | Ppredpatexp_binop (e1, ops, e2) ->
-          let (e1, e2) = Misc.map_pair transl_expr_rec (e1, e2) in
+          let (e1, e2) = FixMisc.map_pair transl_expr_rec (e1, e2) in
           let es = List.rev_map (function [e1; e2] -> (fun o -> Binop (e1, o, e2)) | _ -> assert false)
-              (Misc.rev_perms [e2; e1]) in
+              (FixMisc.rev_perms [e2; e1]) in
           let ops = transl_ops ops in
-          Misc.fast_flap (fun e -> List.rev_map e ops) es
+          FixMisc.fast_flap (fun e -> List.rev_map e ops) es
       | Ppredpatexp_field (f, e1) ->
           let es = List.rev_map (fun f -> (fun e1 -> Field (f, e1))) (Le.find_all_paths f env) in
           let e1 = transl_expr_rec e1 in
-          Misc.fast_flap (fun e -> List.rev_map e e1) es 
+          FixMisc.fast_flap (fun e -> List.rev_map e e1) es 
       | Ppredpatexp_ite (t, e1, e2) ->
-          let (e1, e2) = Misc.map_pair transl_expr_rec (e1, e2) in
+          let (e1, e2) = FixMisc.map_pair transl_expr_rec (e1, e2) in
           let t = transl_pred_rec t in
           let es = List.rev_map
             (function [e1; e2]  -> (fun t -> Ite (t, e1, e2)) | _ -> assert false)
-              (Misc.rev_perms [e2; e1]) in
-          Misc.fast_flap (fun e -> List.rev_map e t) es
+              (FixMisc.rev_perms [e2; e1]) in
+          FixMisc.fast_flap (fun e -> List.rev_map e t) es
   and transl_pred_rec pd =
     match pd.ppredpat_desc with
       | Ppredpat_true ->
           [True]
       | Ppredpat_atom (e1, rels, e2) ->
-          let (e1, e2) = Misc.map_pair transl_expr_rec (e1, e2) in
+          let (e1, e2) = FixMisc.map_pair transl_expr_rec (e1, e2) in
           let es = List.rev_map (function [e1; e2] -> (fun r -> Atom (e1, r, e2)) | _ -> assert false)
-            (Misc.rev_perms [e2; e1]) in
+            (FixMisc.rev_perms [e2; e1]) in
           let rels = transl_rels rels in
-          Misc.fast_flap (fun e -> List.rev_map e rels) es
+          FixMisc.fast_flap (fun e -> List.rev_map e rels) es
       | Ppredpat_not (p) ->
           List.rev_map (fun p -> Not p) (transl_pred_rec p)
       | Ppredpat_implies (p1, p2) ->
@@ -155,16 +155,16 @@ let rec transl_patpred f g env (v, nv) tymap constset p =
     let ps = List.combine paths ps in
     let ps' = List.combine bs paths in
     let env = Le.addn bs' env in
-    let f = if Misc.maybe_bool f then
-      (Some (fun x -> try [List.assoc x ps'] with Not_found -> (Misc.maybe f) x)) else f in
+    let f = if FixMisc.maybe_bool f then
+      (Some (fun x -> try [List.assoc x ps'] with Not_found -> (FixMisc.maybe f) x)) else f in
     List.rev_map (h ps)
       (transl_patpred f g env (v, nv) tymap constset q)
   and permute_pred_pair f e p =
-    let (e, p) = Misc.map_pair transl_pred_rec (e, p) in
-    List.rev_map (function [e; p] -> f e p | _ -> assert false) (Misc.rev_perms [p; e]) in
-  let ts = Misc.rev_perms (List.rev_map (fun (v, t) -> env_by_type_f
+    let (e, p) = FixMisc.map_pair transl_pred_rec (e, p) in
+    List.rev_map (function [e; p] -> f e p | _ -> assert false) (FixMisc.rev_perms [p; e]) in
+  let ts = FixMisc.rev_perms (List.rev_map (fun (v, t) -> env_by_type_f
     (fun n b -> if b && not(Common.path_is_temp n) then Some (v, n) else None) t env) tymap) in 
-  let p' = match ts with [] -> transl_pred_rec p | _ -> Misc.fast_flap (fun t -> vm := t; transl_pred_rec p) ts in
+  let p' = match ts with [] -> transl_pred_rec p | _ -> FixMisc.fast_flap (fun t -> vm := t; transl_pred_rec p) ts in
   if !untyped then List.filter (ck_consistent p) p' else p'
 
 let dummy_path = Path.mk_ident ""

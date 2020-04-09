@@ -323,7 +323,7 @@ let scc_rank f ijs =
                  i (xs_to_string int_s_to_string xs)) a;
           cprintf ol_scc "@[@\n@]" in
   let sccs = array_to_index_list a in
-  Misc.flap (fun (i,vs) -> List.map (fun (j,_) -> (j,i)) vs) sccs
+  FixMisc.flap (fun (i,vs) -> List.map (fun (j,_) -> (j,i)) vs) sccs
 
 (*
 let g1 = [(1,2);(2,3);(3,1);(2,4);(3,4);(4,5)];;

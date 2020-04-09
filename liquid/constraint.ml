@@ -29,8 +29,8 @@ module T = Types
 module TT = Typedtree
 module TP = TheoremProver
 module B = Builtins
-module Q = Qualifier
-module IM = Misc.IntMap
+module Q = Lqualifier
+module IM = FixMisc.IntMap
 module Cf = Clflags
 module S  = Consdef.Sol
 
@@ -44,7 +44,7 @@ module NSet = Set.Make(String)
 
 open Format
 open Wellformed
-open Misc.Ops
+open FixMisc.Ops
 open Consdef
 
 module SIM = Map.Make(struct type t = subref_id let compare = compare end)
@@ -207,18 +207,18 @@ let bind_tags po f cs r env =
   match F.find_tag r with None -> (env, None) | Some tag -> 
     F.constrs_tag_params tag cs 
     |> List.map (fun (a,b,_) -> (Co.i2p a, if is_recvar (po, b) then f else b))
-    |> Misc.flip Le.addn env 
+    |> FixMisc.flip Le.addn env 
     |> (fun env' -> env', Some tag)
 
 let sum_subs = function None -> (fun _ -> []) | Some tag -> 
   (F.constrs_tag_params tag <+> F.params_ids <+> List.map Co.i2p)
-  |> Misc.map_pair
-  <+> Misc.uncurry (List.map2 (fun p1 p2 -> (p1, P.Var p2)))
+  |> FixMisc.map_pair
+  <+> FixMisc.uncurry (List.map2 (fun p1 p2 -> (p1, P.Var p2)))
 
 let sum_subs = function None -> (fun _ -> []) | Some tag -> 
   (F.constrs_tag_params tag <+> F.params_ids <+> List.map Co.i2p)
-  |> Misc.map_pair
-  <+> Misc.uncurry (List.map2 (fun p1 p2 -> (p1, P.Var p2)))
+  |> FixMisc.map_pair
+  <+> FixMisc.uncurry (List.map2 (fun p1 p2 -> (p1, P.Var p2)))
 
 let split_arrow env g c (x1, f1, f1') (x2, f2, f2') = 
   let f1'  = if Ident.same x1 x2 then f1' else F.apply_subs [(Co.i2p x1, P.Var (Co.i2p x2))] f1' in
@@ -228,14 +228,14 @@ let split_arrow env g c (x1, f1, f1') (x2, f2, f2') =
 let split_sum f1 env tenv g c (cs1, r1) (cs2, r2) = 
   let penv, tag = bind_tags None f1 cs1 r1 env in
   let subs      = sum_subs tag (cs1, cs2) in
-  let ps1, ps2  = Misc.map_pair (List.map F.constr_params) (cs1, cs2) in
-  let cs        = Misc.flap2 (split_sub_params c tenv env g) ps1 ps2 in
+  let ps1, ps2  = FixMisc.map_pair (List.map F.constr_params) (cs1, cs2) in
+  let cs        = FixMisc.flap2 (split_sub_params c tenv env g) ps1 ps2 in
   let rs        = List.map (F.refexpr_apply_subs subs) r2 |> split_sub_ref f1 c penv g r1 in
   cs, rs
 
 let split_inductive env g c = 
-  Misc.map_pair F.unfold_with_shape 
-  <+> Misc.uncurry (lequate_cs env g c F.Covariant)
+  FixMisc.map_pair F.unfold_with_shape 
+  <+> FixMisc.uncurry (lequate_cs env g c F.Covariant)
   <+> (fun x -> x, [])
 
 let split_abstract env tenv g c (f1, f2) (id1, id2) = 
@@ -288,7 +288,7 @@ let split_wf = function {lc_cstr = SubFrame _} -> assert false | {lc_cstr = WFFr
   | F.Finductive (p, ps, rr, cs, r) ->
       (make_wff c tenv env (F.wf_unfold f) :: (ps |> F.params_frames |>: make_wff c tenv env), [])
   | F.Fsum (_, cs, r) ->
-     (Misc.flap (split_wf_params c tenv env <.> F.constr_params) cs,
+     (FixMisc.flap (split_wf_params c tenv env <.> F.constr_params) cs,
       split_wf_ref f c (fst (bind_tags None f cs r env)) r)
   | F.Fabstract (_, ps, id, r) ->
       (split_wf_params c tenv (Le.add (Path.Pident id) f env) ps, split_wf_ref f c env r)
@@ -301,7 +301,7 @@ let split_wf = function {lc_cstr = SubFrame _} -> assert false | {lc_cstr = WFFr
 
 let split cs =
   assert (List.for_all (fun c -> None <> c.lc_id) cs);
-  Misc.expand begin fun c -> match c.lc_cstr with 
+  FixMisc.expand begin fun c -> match c.lc_cstr with 
       | SubFrame _ -> split_sub c 
       | WFFrame _  -> split_wf c
   end cs []
@@ -337,7 +337,7 @@ let get_ref_rank sri c =
      raise Not_found)
 
 let get_ref_constraint sri i = 
-  Misc.do_catch "ERROR: get_constraint" (SIM.find i) sri.cnst
+  FixMisc.do_catch "ERROR: get_constraint" (SIM.find i) sri.cnst
 
 let lhs_ks = function 
   | SubRef (_,env,_,r,_,_) -> 
@@ -423,7 +423,7 @@ let make_ref_index ocs =
   {orig = om; cnst = cm; rank = rm; depm = dm; pend = Hashtbl.create 17}
 
 let get_ref_orig sri c = 
-  Misc.do_catch "ERROR: get_ref_orig" (SIM.find (get_ref_id c)) sri.orig
+  FixMisc.do_catch "ERROR: get_ref_orig" (SIM.find (get_ref_id c)) sri.orig
 
 let get_ref_fenv orig c =
   (function SubFrame (a, _, _, _) | WFFrame (a, _) -> a) orig.lc_cstr
@@ -498,11 +498,11 @@ let close_over_env env s ps =
 
 let refine_sol_update s k qs qs' = 
   BS.time "sol replace" (Sol.replace s k) qs';
-  not (Misc.same_length qs qs')
+  not (FixMisc.same_length qs qs')
 
 let refine_simple s r1 k2 =
-  let k1s  = Misc.flap (fun (_,(_,ks)) -> ks) r1 in
-  let q1s  = Misc.flap (Sol.find s) k1s in
+  let k1s  = FixMisc.flap (fun (_,(_,ks)) -> ks) r1 in
+  let q1s  = FixMisc.flap (Sol.find s) k1s in
   let q1s  = List.fold_left (fun qs q -> QSet.add q qs) QSet.empty q1s in
   let q2s  = Sol.find s k2 in
   let q2s' = List.filter (fun q -> QSet.mem q q1s) q2s in
@@ -530,7 +530,7 @@ let check_tp senv lhs_ps x2 =
   let dump s p = 
     let p = List.map (fun p -> P.big_and (List.filter (function P.Atom(p, P.Eq, p') when p = p' -> false | _ -> true) (P.conjuncts p))) p in
     let p = List.filter (function P.True -> false | _ -> true) p in
-    C.cprintf C.ol_dump_prover "@[%s:@ %a@]@." s (Misc.pprint_many false " " P.pprint) p in
+    C.cprintf C.ol_dump_prover "@[%s:@ %a@]@." s (FixMisc.pprint_many false " " P.pprint) p in
   let dump s p = if C.ck_olev C.ol_dump_prover then dump s p else () in
   let _ = dump "Assert" lhs_ps in
   let _ = if C.ck_olev C.ol_dump_prover then dump "Ck" (snd (List.split x2)) in
@@ -587,9 +587,9 @@ let refine_wf s = function
       let _   = if C.ck_olev C.ol_dump_wfs then printf "@.@.@[WF: k%d@]@." k in
       let _   = if C.ck_olev C.ol_dump_wfs then printf "@[(Env)@ %a@]@." pprint_fenv_shp env in 
       let qs' = BS.time "filter wf" (List.filter (qual_wf (solution_map s) env subs)) qs in
-      let _   = if C.ck_olev C.ol_dump_wfs then List.iter (fun q -> printf "%a" Qualifier.pprint q) qs in
+      let _   = if C.ck_olev C.ol_dump_wfs then List.iter (fun q -> printf "%a" Lqualifier.pprint q) qs in
       let _   = if C.ck_olev C.ol_dump_wfs then printf "@.@." in
-      let _   = if C.ck_olev C.ol_dump_wfs then List.iter (fun q -> printf "%a" Qualifier.pprint q) qs' in
+      let _   = if C.ck_olev C.ol_dump_wfs then List.iter (fun q -> printf "%a" Lqualifier.pprint q) qs' in
       refine_sol_update s k qs qs'
   | _ -> false 
  
@@ -614,7 +614,7 @@ let sat s orig = function
   | _ -> true
 
 let unsat_constraints cs s =
-  Misc.map_partial (fun (_,o, c) -> if sat s o c then None else Some (c, o)) cs
+  FixMisc.map_partial (fun (_,o, c) -> if sat s o c then None else Some (c, o)) cs
 
 (**************************************************************)
 (******************** Qualifier Instantiation *****************)
@@ -628,14 +628,14 @@ let tr_misses = ref 0
 
 let instantiate_quals_in_env tr mlenv consts qs =
     (fun (env, envl') ->
-        let (vs, (env, envl, quoi)) = TR.find_maximal envl' tr (fun (_, _, quoi) -> Misc.maybe_bool !quoi) in
+        let (vs, (env, envl, quoi)) = TR.find_maximal envl' tr (fun (_, _, quoi) -> FixMisc.maybe_bool !quoi) in
         match !quoi with
           | Some qs -> 
             quoi := Some qs;
-            List.iter (fun (_, _, q) -> if Misc.maybe_bool !q then () else q := Some qs) vs; qs
+            List.iter (fun (_, _, q) -> if FixMisc.maybe_bool !q then () else q := Some qs) vs; qs
           | None -> 
             let _   = incr tr_misses in
-            let qs = Misc.fast_flap
+            let qs = FixMisc.fast_flap
             (fun q -> try Qualdecl.expand_qualpat_about consts env mlenv q with Failure _ -> []) qs in
             let _ = TR.iter_path envl tr 
               (fun (_, _, quoi) ->
@@ -656,8 +656,8 @@ let instantiate_per_environment mlenv consts cs qs =
 
 let filter_quals qss =
   let valid q =
-    Qualifier.may_not_be_tautology q &&
-    Qualifier.no_div_by_zero q in
+    Lqualifier.may_not_be_tautology q &&
+    Lqualifier.no_div_by_zero q in
   List.map (fun qs -> List.filter valid qs) qss
 
 
@@ -711,7 +711,7 @@ let make_initial_solution cs =
               else Sol.replace s k [] 
           | _ -> ()
           end cs in
-  let l = BS.time "sort and compact" Misc.sort_and_compact !l in
+  let l = BS.time "sort and compact" FixMisc.sort_and_compact !l in
   let _ = BS.time "elements" (List.iter (fun k -> Sol.replace s k (QSet.elements (Sol.find s' k)))) l in
   s
 
@@ -789,7 +789,7 @@ let dump_solving step (cs, s) =
 let dump_qualifiers qs =
   if C.ck_olev C.ol_insane then begin 
     printf "Raw generated qualifiers:@.";
-    List.iter (printf "%a@.@." (Misc.pprint_many false "," Qualifier.pprint)) qs;
+    List.iter (printf "%a@.@." (FixMisc.pprint_many false "," Lqualifier.pprint)) qs;
     printf "done.@."
   end
 
@@ -810,13 +810,13 @@ let rec solve_sub s (sri, w) =
     solve_sub s (sri, w')
 
 let solve_wf s cs =
-  cs |> Misc.map thd3
-     |> Misc.filter (function WFRef _ -> true | _ -> false) 
-     |> Misc.iter (refine_wf s <+> ignore)
+  cs |> FixMisc.map thd3
+     |> FixMisc.filter (function WFRef _ -> true | _ -> false) 
+     |> FixMisc.iter (refine_wf s <+> ignore)
 
 let print_unsats = function
   | [] -> ()
-  | cs -> C.cprintf C.ol_solve_error "Unsatisfied Constraints\n%a" (Misc.pprint_many true "\n" (pprint_ref None)) cs
+  | cs -> C.cprintf C.ol_solve_error "Unsatisfied Constraints\n%a" (FixMisc.pprint_many true "\n" (pprint_ref None)) cs
 
 let test_sol (cs, s) =
   s >> S.dump "test_sol" 
@@ -829,11 +829,11 @@ let dsolver cs s =
   cs |> make_ref_index 
      >> dump_ref_vars
      >> dump_ref_constraints
-     |> Misc.pad_snd make_initial_worklist
+     |> FixMisc.pad_snd make_initial_worklist
      |> BS.time "solving sub" (solve_sub s)
      >> (fun _ -> TP.reset ())
 
-let pprint_tb = fun ppf (f, io) -> Format.fprintf ppf "@[%a in %a@]" F.pprint f Misc.pprint_int_o io
+let pprint_tb = fun ppf (f, io) -> Format.fprintf ppf "@[%a in %a@]" F.pprint f FixMisc.pprint_int_o io
 
 let checkenv_of_cs cs = 
   List.fold_left begin fun env (v, c, _) -> 
@@ -845,7 +845,7 @@ let checkenv_of_cs cs =
   |> Le.iter begin fun k vs -> match vs with [] -> () | (v,_)::_ ->
        if not (List.for_all (fst <+> F.same_shape v) vs) then begin
          Format.printf "DUPLICATE BINDINGS for %s \n%a" 
-         (Path.unique_name k) (Misc.pprint_many true "\n" pprint_tb) vs;
+         (Path.unique_name k) (FixMisc.pprint_many true "\n" pprint_tb) vs;
          assertf "ERROR: FUPLICATE BINDING"
        end
   end
@@ -883,7 +883,7 @@ let solve sourcefile after_wf env consts qs cs =
   >> dump_unsplit
   |> BS.time "splitting constraints" split
   |> solve_wfs env consts qs
-  >> Misc.iter_snd after_wf
+  >> FixMisc.iter_snd after_wf
   |> solve_subs sourcefile
   >> dump_solving 2
   |> test_sol

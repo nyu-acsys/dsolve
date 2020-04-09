@@ -144,7 +144,9 @@ let crc_units = Consistbl.create()
 let check_consistency filename crcs =
   try
     List.iter
-      (fun (name, crc) -> Consistbl.check crc_units name crc filename)
+      (fun (name, crc) ->
+        print_endline ("check " ^ name ^ " " ^ crc);
+        Consistbl.check crc_units name crc filename)
       crcs
   with Consistbl.Inconsistency(name, source, auth) ->
     raise(Error(Inconsistent_import(name, auth, source)))
@@ -152,6 +154,7 @@ let check_consistency filename crcs =
 (* Reading persistent structures from .cmi files *)
 
 let read_pers_struct modname filename =
+  print_endline ("read_pers: " ^ modname ^ " " ^ filename);
   let ic = open_in_bin filename in
   try
     let buffer = String.create (String.length cmi_magic_number) in

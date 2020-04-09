@@ -11,4 +11,4 @@ val solve:
   int list -> 
   Parsetree.qualifier_declaration list -> 
   labeled_constraint list ->
-  (Frame.qvar -> Qualifier.t list) * (labeled_constraint list)
+  (Frame.qvar -> Lqualifier.t list) * (labeled_constraint list)

@@ -25,7 +25,7 @@ open Measure
 open Parsetree
 open Format
 open Types
-open Misc.Ops
+open FixMisc.Ops
 
 module C = Common
 module F = Frame
@@ -49,7 +49,7 @@ let lookup2_f f1 f2 fail s = lu f1 (lu f2 fail) s
 
 let lookup f y s = lu f (fun s -> y) s 
 
-let maybe_add_pref dopt s = match dopt with None -> s | Some d -> Misc.append_pref d s
+let maybe_add_pref dopt s = match dopt with None -> s | Some d -> FixMisc.append_pref d s
 
 let nativize_core_type dopt env ty =
   Common.map_core_type_constrs (fun l ->
@@ -62,7 +62,7 @@ let translate_pframe dopt env pf =
                    with Not_found -> let a = Ident.create a in
                    let _ = vars := a::!vars in
                      a in
-  let transl_lident l = match dopt with Some d -> Longident.parse (Misc.append_pref d (C.l_to_s l)) | None -> l in 
+  let transl_lident l = match dopt with Some d -> Longident.parse (FixMisc.append_pref d (C.l_to_s l)) | None -> l in 
   let lookup l = 
     try Env.lookup_type (transl_lident l) env 
       with Not_found -> try Env.lookup_type l env
@@ -137,14 +137,14 @@ let translate_pframe dopt env pf =
 
 let load_val dopt env fenv (s, pf) =
   try
-    let p = C.lookup_path (match dopt with Some d -> Misc.append_pref d s | None -> s) env in
+    let p = C.lookup_path (match dopt with Some d -> FixMisc.append_pref d s | None -> s) env in
     let _ = if String.contains s '.' then failwith (Printf.sprintf "mlq: val %s has invalid name" s) in
       Le.add p pf fenv
   with Not_found -> failwith (Printf.sprintf "mlq: val %s does not correspond to program value" s)
 
 let map_constructor_args dopt env (name, mlname) (cname, args, cpredorexp) =
   let cname = lookup (fun s -> let dc = maybe_add_pref dopt s in ignore (Env.lookup_constructor (Longident.parse dc) env); dc) cname cname in
-  let dargs = Misc.maybe_list args in
+  let dargs = FixMisc.maybe_list args in
   let argmap = List.combine dargs (List.map (fun s -> Path.mk_ident s) dargs) in
   let fvar s = 
     let l_env s = [C.lookup_path s env] in
@@ -153,7 +153,7 @@ let map_constructor_args dopt env (name, mlname) (cname, args, cpredorexp) =
   let ffun s = lookup (fun s -> let s = maybe_add_pref dopt (Path.name s) in C.lookup_path s env) s s in
   let pred =
     P.pred_or_pexp_map_funs ffun 
-     (Misc.ex_one "metavariable or ident set used in measure"
+     (FixMisc.ex_one "metavariable or ident set used in measure"
       (Qualdecl.transl_patpredorexp_map fvar fvar cpredorexp)) in
   let args = List.map (function Some s -> Some (List.assoc s argmap) | None -> None) args in
     Mcstr(cname, (args, (maybe_add_pref dopt name, pred)))
@@ -186,7 +186,7 @@ let load_axiom dopt env fenv ifenv menv name pred =
     lookup2_f (fun x -> [C.lookup_path (maybe_add_pref dopt x) env])
               (fun x -> [Le.find_path x fenv])
               (fun x -> failwith (sprintf "Axiom@ %s@ uses@ unbound@ identifier@ %s" name x)) in
-  let pred = Misc.ex_one "patterns used in axiom decl" (Qualdecl.transl_patpred_map lu lu pred) in
+  let pred = FixMisc.ex_one "patterns used in axiom decl" (Qualdecl.transl_patpred_map lu lu pred) in
   let fr = Builtins.rUnit "" (Path.mk_ident "") pred in 
   let add = Le.add (Path.mk_ident (axiom_prefix ^ name)) fr in
   let (fenv, ifenv) = match dopt with Some _ -> (fenv, add ifenv) | None -> (add fenv, ifenv) in
@@ -198,12 +198,12 @@ let extract_pred f =
   | _ -> assert false
 
 let scrub_and_push_axioms fenv =
-  Le.fold (fun p f env -> if Misc.is_prefix axiom_prefix (Path.name p) then 
+  Le.fold (fun p f env -> if FixMisc.is_prefix axiom_prefix (Path.name p) then 
             (TheoremProver.push_axiom fenv (extract_pred f); env) else
               Le.add p f env) fenv Le.empty
 
 let scrub_axioms fenv =
-  Le.fold (fun p f env -> if Misc.is_prefix axiom_prefix (Path.name p) then 
+  Le.fold (fun p f env -> if FixMisc.is_prefix axiom_prefix (Path.name p) then 
             env else Le.add p f env) fenv Le.empty
 
 let load_rw dopt rw env menv' fenv decls =
@@ -238,12 +238,12 @@ let sub_pred v f p =
 
 let load_dep_sigs env fenv mlqs =
   let rw dname env fenv ifenv =
-    let modname s = Misc.append_pref dname s in
+    let modname s = FixMisc.append_pref dname s in
     let env_lookup s = let s = modname s in C.lookup_path s env in
     let fenv_lookup s = let s = modname s in Le.find_path s fenv in
     let lu s = lookup2_f env_lookup fenv_lookup (fun _ -> s) (Path.name s) in
     let fenv = Le.fold (fun p fr e -> Le.add p (F.map_refexprs
-    (M.rewrite_refexpr (Misc.app_snd (sub_pred lu lu))) 
+    (M.rewrite_refexpr (FixMisc.app_snd (sub_pred lu lu))) 
                        (F.label_like fr fr)) e) ifenv fenv in
       (fenv, Le.empty) in
   List.fold_left (fun (env, menv, fenv, _) (mlq, dname) -> load_rw (Some dname) (rw dname) env menv fenv mlq) (env, [], fenv, Le.empty) mlqs
@@ -251,4 +251,4 @@ let load_dep_sigs env fenv mlqs =
 (* builtins *)
 
 let filter_vals xs =
-  Misc.maybe_list (List.map (function LvalDecl(x, y) -> Some(x, y)  | _ -> None) xs)
+  FixMisc.maybe_list (List.map (function LvalDecl(x, y) -> Some(x, y)  | _ -> None) xs)

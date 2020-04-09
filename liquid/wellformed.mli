@@ -24,7 +24,7 @@
 open Frame
 
 val refinement_well_formed:
-  t Liqenv.t -> (Frame.qvar -> Qualifier.t list) -> refinement -> Predicate.pexpr -> bool
+  t Liqenv.t -> (Frame.qvar -> Lqualifier.t list) -> refinement -> Predicate.pexpr -> bool
 
 val pred_well_formed:
   t Liqenv.t -> Predicate.t -> bool

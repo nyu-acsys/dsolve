@@ -1,229 +1,255 @@
-utils/bstats.cmo: utils/bstats.cmi 
-utils/bstats.cmx: utils/bstats.cmi 
+utils/bstats.cmi:
+utils/ccomp.cmi:
+utils/clflags.cmi:
+utils/config.cmi:
+utils/consistbl.cmi:
+utils/heap.cmi:
+utils/misc.cmi:
+utils/tbl.cmi:
+utils/terminfo.cmi:
+utils/warnings.cmi:
+utils/bstats.cmo: utils/bstats.cmi
+utils/bstats.cmx: utils/bstats.cmi
 utils/ccomp.cmo: utils/miscutil.cmo utils/config.cmi utils/clflags.cmi \
-    utils/ccomp.cmi 
+    utils/ccomp.cmi
 utils/ccomp.cmx: utils/miscutil.cmx utils/config.cmx utils/clflags.cmx \
-    utils/ccomp.cmi 
-utils/clflags.cmo: utils/config.cmi utils/clflags.cmi 
-utils/clflags.cmx: utils/config.cmx utils/clflags.cmi 
-utils/config.cmo: utils/config.cmi 
-utils/config.cmx: utils/config.cmi 
-utils/consistbl.cmo: utils/consistbl.cmi 
-utils/consistbl.cmx: utils/consistbl.cmi 
-utils/heap.cmo: utils/heap.cmi 
-utils/heap.cmx: utils/heap.cmi 
-utils/tbl.cmo: utils/tbl.cmi 
-utils/tbl.cmx: utils/tbl.cmi 
-utils/terminfo.cmo: utils/terminfo.cmi 
-utils/terminfo.cmx: utils/terminfo.cmi 
-utils/warnings.cmo: utils/warnings.cmi 
-utils/warnings.cmx: utils/warnings.cmi 
-parsing/location.cmi: utils/warnings.cmi 
-parsing/mlqparser.cmi: parsing/parsetree.cmi 
-parsing/parse.cmi: parsing/parsetree.cmi 
-parsing/parser.cmi: parsing/parsetree.cmi 
+    utils/ccomp.cmi
+utils/clflags.cmo: utils/config.cmi utils/clflags.cmi
+utils/clflags.cmx: utils/config.cmx utils/clflags.cmi
+utils/config.cmo: utils/config.cmi
+utils/config.cmx: utils/config.cmi
+utils/consistbl.cmo: utils/consistbl.cmi
+utils/consistbl.cmx: utils/consistbl.cmi
+utils/fixMisc.cmo:
+utils/fixMisc.cmx:
+utils/heap.cmo: utils/heap.cmi
+utils/heap.cmx: utils/heap.cmi
+utils/miscutil.cmo:
+utils/miscutil.cmx:
+utils/mystats.cmo:
+utils/mystats.cmx:
+utils/tbl.cmo: utils/tbl.cmi
+utils/tbl.cmx: utils/tbl.cmi
+utils/terminfo.cmo: utils/terminfo.cmi
+utils/terminfo.cmx: utils/terminfo.cmi
+utils/trie.cmo:
+utils/trie.cmx:
+utils/warnings.cmo: utils/warnings.cmi
+utils/warnings.cmx: utils/warnings.cmi
+parsing/asttypes.cmi:
+parsing/linenum.cmi:
+parsing/location.cmi: utils/warnings.cmi
+parsing/longident.cmi:
+parsing/mlqparser.cmi: parsing/parsetree.cmi
+parsing/parse.cmi: parsing/parsetree.cmi
+parsing/parser.cmi: parsing/parsetree.cmi
 parsing/parsetree.cmi: parsing/longident.cmi parsing/location.cmi \
-    parsing/asttypes.cmi 
-parsing/printast.cmi: parsing/parsetree.cmi 
-parsing/quotations.cmi: parsing/parsetree.cmi 
-parsing/syntaxerr.cmi: parsing/location.cmi 
+    parsing/asttypes.cmi
+parsing/pparse.cmi:
+parsing/printast.cmi: parsing/parsetree.cmi
+parsing/quotations.cmi: parsing/parsetree.cmi
+parsing/syntaxerr.cmi: parsing/location.cmi
 parsing/lexer.cmo: utils/warnings.cmi parsing/parser.cmi utils/miscutil.cmo \
-    parsing/location.cmi 
+    parsing/location.cmi
 parsing/lexer.cmx: utils/warnings.cmx parsing/parser.cmx utils/miscutil.cmx \
-    parsing/location.cmx 
-parsing/linenum.cmo: utils/miscutil.cmo parsing/linenum.cmi 
-parsing/linenum.cmx: utils/miscutil.cmx parsing/linenum.cmi 
+    parsing/location.cmx
+parsing/linenum.cmo: utils/miscutil.cmo parsing/linenum.cmi
+parsing/linenum.cmx: utils/miscutil.cmx parsing/linenum.cmi
 parsing/location.cmo: utils/warnings.cmi utils/terminfo.cmi \
-    parsing/linenum.cmi parsing/location.cmi 
+    parsing/linenum.cmi parsing/location.cmi
 parsing/location.cmx: utils/warnings.cmx utils/terminfo.cmx \
-    parsing/linenum.cmx parsing/location.cmi 
-parsing/longident.cmo: utils/miscutil.cmo parsing/longident.cmi 
-parsing/longident.cmx: utils/miscutil.cmx parsing/longident.cmi 
+    parsing/linenum.cmx parsing/location.cmi
+parsing/longident.cmo: utils/miscutil.cmo parsing/longident.cmi
+parsing/longident.cmx: utils/miscutil.cmx parsing/longident.cmi
 parsing/mlqlexer.cmo: utils/warnings.cmi parsing/mlqparser.cmi \
-    utils/miscutil.cmo parsing/location.cmi 
+    utils/miscutil.cmo parsing/location.cmi
 parsing/mlqlexer.cmx: utils/warnings.cmx parsing/mlqparser.cmx \
-    utils/miscutil.cmx parsing/location.cmx 
+    utils/miscutil.cmx parsing/location.cmx
 parsing/mlqparser.cmo: parsing/parsetree.cmi parsing/longident.cmi \
-    parsing/location.cmi parsing/asttypes.cmi parsing/mlqparser.cmi 
+    parsing/location.cmi parsing/asttypes.cmi parsing/mlqparser.cmi
 parsing/mlqparser.cmx: parsing/parsetree.cmi parsing/longident.cmx \
-    parsing/location.cmx parsing/asttypes.cmi parsing/mlqparser.cmi 
+    parsing/location.cmx parsing/asttypes.cmi parsing/mlqparser.cmi
 parsing/parse.cmo: parsing/syntaxerr.cmi parsing/parser.cmi \
     parsing/mlqparser.cmi parsing/mlqlexer.cmo parsing/location.cmi \
-    parsing/lexer.cmo parsing/parse.cmi 
+    parsing/lexer.cmo parsing/parse.cmi
 parsing/parse.cmx: parsing/syntaxerr.cmx parsing/parser.cmx \
     parsing/mlqparser.cmx parsing/mlqlexer.cmx parsing/location.cmx \
-    parsing/lexer.cmx parsing/parse.cmi 
+    parsing/lexer.cmx parsing/parse.cmi
 parsing/parser.cmo: parsing/syntaxerr.cmi parsing/parsetree.cmi \
     parsing/longident.cmi parsing/location.cmi utils/clflags.cmi \
-    parsing/asttypes.cmi parsing/parser.cmi 
+    parsing/asttypes.cmi parsing/parser.cmi
 parsing/parser.cmx: parsing/syntaxerr.cmx parsing/parsetree.cmi \
     parsing/longident.cmx parsing/location.cmx utils/clflags.cmx \
-    parsing/asttypes.cmi parsing/parser.cmi 
+    parsing/asttypes.cmi parsing/parser.cmi
 parsing/pparse.cmo: utils/miscutil.cmo parsing/location.cmi utils/clflags.cmi \
-    utils/ccomp.cmi parsing/pparse.cmi 
+    utils/ccomp.cmi parsing/pparse.cmi
 parsing/pparse.cmx: utils/miscutil.cmx parsing/location.cmx utils/clflags.cmx \
-    utils/ccomp.cmx parsing/pparse.cmi 
+    utils/ccomp.cmx parsing/pparse.cmi
 parsing/printast.cmo: parsing/parsetree.cmi parsing/longident.cmi \
-    parsing/location.cmi parsing/asttypes.cmi parsing/printast.cmi 
+    parsing/location.cmi parsing/asttypes.cmi parsing/printast.cmi
 parsing/printast.cmx: parsing/parsetree.cmi parsing/longident.cmx \
-    parsing/location.cmx parsing/asttypes.cmi parsing/printast.cmi 
+    parsing/location.cmx parsing/asttypes.cmi parsing/printast.cmi
 parsing/quotations.cmo: parsing/parsetree.cmi parsing/parse.cmi \
-    parsing/quotations.cmi 
+    parsing/quotations.cmi
 parsing/quotations.cmx: parsing/parsetree.cmi parsing/parse.cmx \
-    parsing/quotations.cmi 
-parsing/syntaxerr.cmo: parsing/location.cmi parsing/syntaxerr.cmi 
-parsing/syntaxerr.cmx: parsing/location.cmx parsing/syntaxerr.cmi 
-typing/btype.cmi: typing/types.cmi typing/path.cmi parsing/asttypes.cmi 
+    parsing/quotations.cmi
+parsing/syntaxerr.cmo: parsing/location.cmi parsing/syntaxerr.cmi
+parsing/syntaxerr.cmx: parsing/location.cmx parsing/syntaxerr.cmi
+typing/btype.cmi: typing/types.cmi typing/path.cmi parsing/asttypes.cmi
 typing/ctype.cmi: typing/types.cmi typing/path.cmi typing/ident.cmi \
-    typing/env.cmi parsing/asttypes.cmi 
-typing/datarepr.cmi: typing/types.cmi typing/path.cmi parsing/asttypes.cmi 
+    typing/env.cmi parsing/asttypes.cmi
+typing/datarepr.cmi: typing/types.cmi typing/path.cmi parsing/asttypes.cmi
 typing/env.cmi: typing/types.cmi typing/path.cmi parsing/longident.cmi \
-    typing/ident.cmi utils/consistbl.cmi 
+    typing/ident.cmi utils/consistbl.cmi
+typing/ident.cmi:
 typing/includeclass.cmi: typing/types.cmi typing/typedtree.cmi typing/env.cmi \
-    typing/ctype.cmi 
+    typing/ctype.cmi
 typing/includecore.cmi: typing/types.cmi typing/typedtree.cmi \
-    typing/ident.cmi typing/env.cmi 
+    typing/ident.cmi typing/env.cmi
 typing/includemod.cmi: typing/types.cmi typing/typedtree.cmi typing/path.cmi \
-    typing/ident.cmi typing/env.cmi typing/ctype.cmi 
+    typing/ident.cmi typing/env.cmi typing/ctype.cmi
 typing/mtype.cmi: typing/types.cmi typing/path.cmi typing/ident.cmi \
-    typing/env.cmi 
-typing/oprint.cmi: typing/outcometree.cmi 
-typing/outcometree.cmi: parsing/asttypes.cmi 
+    typing/env.cmi
+typing/oprint.cmi: typing/outcometree.cmi
+typing/outcometree.cmi: parsing/asttypes.cmi
 typing/parmatch.cmi: typing/types.cmi typing/typedtree.cmi \
-    parsing/location.cmi typing/env.cmi 
-typing/path.cmi: typing/ident.cmi 
-typing/predef.cmi: typing/types.cmi typing/path.cmi typing/ident.cmi 
+    parsing/location.cmi typing/env.cmi
+typing/path.cmi: typing/ident.cmi
+typing/predef.cmi: typing/types.cmi typing/path.cmi typing/ident.cmi
 typing/predicate.cmi: typing/path.cmi parsing/parsetree.cmi \
-    parsing/asttypes.cmi 
+    parsing/asttypes.cmi
+typing/primitive.cmi:
 typing/printtyp.cmi: typing/types.cmi typing/path.cmi typing/outcometree.cmi \
-    parsing/longident.cmi typing/ident.cmi 
-typing/stypes.cmi: typing/typedtree.cmi parsing/location.cmi 
-typing/subst.cmi: typing/types.cmi typing/path.cmi typing/ident.cmi 
+    parsing/longident.cmi typing/ident.cmi
+typing/stypes.cmi: typing/typedtree.cmi parsing/location.cmi
+typing/subst.cmi: typing/types.cmi typing/path.cmi typing/ident.cmi
 typing/typeclass.cmi: typing/types.cmi typing/typedtree.cmi \
     parsing/parsetree.cmi parsing/longident.cmi parsing/location.cmi \
-    typing/ident.cmi typing/env.cmi typing/ctype.cmi parsing/asttypes.cmi 
+    typing/ident.cmi typing/env.cmi typing/ctype.cmi parsing/asttypes.cmi
 typing/typecore.cmi: typing/types.cmi typing/typedtree.cmi typing/path.cmi \
     parsing/parsetree.cmi parsing/longident.cmi parsing/location.cmi \
-    typing/ident.cmi typing/env.cmi parsing/asttypes.cmi 
+    typing/ident.cmi typing/env.cmi parsing/asttypes.cmi
 typing/typedecl.cmi: typing/types.cmi typing/path.cmi parsing/parsetree.cmi \
     parsing/longident.cmi parsing/location.cmi typing/ident.cmi \
-    typing/env.cmi 
+    typing/env.cmi
 typing/typedtree.cmi: typing/types.cmi typing/primitive.cmi typing/path.cmi \
-    parsing/location.cmi typing/ident.cmi typing/env.cmi parsing/asttypes.cmi 
+    parsing/location.cmi typing/ident.cmi typing/env.cmi parsing/asttypes.cmi
 typing/typemod.cmi: typing/types.cmi typing/typedtree.cmi \
     parsing/parsetree.cmi parsing/longident.cmi parsing/location.cmi \
-    typing/includemod.cmi typing/ident.cmi typing/env.cmi 
+    typing/includemod.cmi typing/ident.cmi typing/env.cmi
 typing/types.cmi: typing/primitive.cmi typing/predicate.cmi typing/path.cmi \
-    typing/ident.cmi parsing/asttypes.cmi 
+    typing/ident.cmi parsing/asttypes.cmi
 typing/typetexp.cmi: typing/types.cmi typing/path.cmi parsing/parsetree.cmi \
-    parsing/longident.cmi parsing/location.cmi typing/env.cmi 
-typing/unused_var.cmi: parsing/parsetree.cmi 
+    parsing/longident.cmi parsing/location.cmi typing/env.cmi
+typing/unused_var.cmi: parsing/parsetree.cmi
 typing/btype.cmo: typing/types.cmi typing/path.cmi utils/miscutil.cmo \
-    typing/btype.cmi 
+    typing/btype.cmi
 typing/btype.cmx: typing/types.cmx typing/path.cmx utils/miscutil.cmx \
-    typing/btype.cmi 
+    typing/btype.cmi
 typing/common.cmo: typing/types.cmi typing/path.cmi parsing/parsetree.cmi \
-    typing/oprint.cmi utils/misc.cmi parsing/longident.cmi typing/ident.cmi \
-    typing/env.cmi utils/clflags.cmi typing/btype.cmi utils/bstats.cmi 
+    typing/oprint.cmi parsing/longident.cmi typing/ident.cmi \
+    external/misc/_build/fixMisc.cmo typing/env.cmi utils/clflags.cmi \
+    typing/btype.cmi utils/bstats.cmi
 typing/common.cmx: typing/types.cmx typing/path.cmx parsing/parsetree.cmi \
-    typing/oprint.cmx utils/misc.cmi parsing/longident.cmx typing/ident.cmx \
-    typing/env.cmx utils/clflags.cmx typing/btype.cmx utils/bstats.cmx 
+    typing/oprint.cmx parsing/longident.cmx typing/ident.cmx \
+    external/misc/_build/fixMisc.cmx typing/env.cmx utils/clflags.cmx \
+    typing/btype.cmx utils/bstats.cmx
 typing/ctype.cmo: typing/types.cmi typing/subst.cmi typing/path.cmi \
     utils/miscutil.cmo parsing/longident.cmi typing/ident.cmi typing/env.cmi \
-    utils/clflags.cmi typing/btype.cmi parsing/asttypes.cmi typing/ctype.cmi 
+    utils/clflags.cmi typing/btype.cmi parsing/asttypes.cmi typing/ctype.cmi
 typing/ctype.cmx: typing/types.cmx typing/subst.cmx typing/path.cmx \
     utils/miscutil.cmx parsing/longident.cmx typing/ident.cmx typing/env.cmx \
-    utils/clflags.cmx typing/btype.cmx parsing/asttypes.cmi typing/ctype.cmi 
+    utils/clflags.cmx typing/btype.cmx parsing/asttypes.cmi typing/ctype.cmi
 typing/datarepr.cmo: typing/types.cmi typing/predef.cmi utils/miscutil.cmo \
-    parsing/asttypes.cmi typing/datarepr.cmi 
+    parsing/asttypes.cmi typing/datarepr.cmi
 typing/datarepr.cmx: typing/types.cmx typing/predef.cmx utils/miscutil.cmx \
-    parsing/asttypes.cmi typing/datarepr.cmi 
+    parsing/asttypes.cmi typing/datarepr.cmi
 typing/env.cmo: typing/types.cmi utils/tbl.cmi typing/subst.cmi \
     typing/predef.cmi typing/path.cmi utils/miscutil.cmo \
     parsing/longident.cmi typing/ident.cmi typing/datarepr.cmi \
     utils/consistbl.cmi utils/config.cmi utils/clflags.cmi typing/btype.cmi \
-    parsing/asttypes.cmi typing/env.cmi 
+    parsing/asttypes.cmi typing/env.cmi
 typing/env.cmx: typing/types.cmx utils/tbl.cmx typing/subst.cmx \
     typing/predef.cmx typing/path.cmx utils/miscutil.cmx \
     parsing/longident.cmx typing/ident.cmx typing/datarepr.cmx \
     utils/consistbl.cmx utils/config.cmx utils/clflags.cmx typing/btype.cmx \
-    parsing/asttypes.cmi typing/env.cmi 
-typing/ident.cmo: typing/ident.cmi 
-typing/ident.cmx: typing/ident.cmi 
+    parsing/asttypes.cmi typing/env.cmi
+typing/ident.cmo: typing/ident.cmi
+typing/ident.cmx: typing/ident.cmi
 typing/includeclass.cmo: typing/types.cmi typing/printtyp.cmi \
-    typing/ctype.cmi typing/includeclass.cmi 
+    typing/ctype.cmi typing/includeclass.cmi
 typing/includeclass.cmx: typing/types.cmx typing/printtyp.cmx \
-    typing/ctype.cmx typing/includeclass.cmi 
+    typing/ctype.cmx typing/includeclass.cmi
 typing/includecore.cmo: typing/types.cmi typing/typedtree.cmi \
     typing/predef.cmi typing/path.cmi utils/miscutil.cmo typing/ctype.cmi \
-    typing/btype.cmi parsing/asttypes.cmi typing/includecore.cmi 
+    typing/btype.cmi parsing/asttypes.cmi typing/includecore.cmi
 typing/includecore.cmx: typing/types.cmx typing/typedtree.cmx \
     typing/predef.cmx typing/path.cmx utils/miscutil.cmx typing/ctype.cmx \
-    typing/btype.cmx parsing/asttypes.cmi typing/includecore.cmi 
+    typing/btype.cmx parsing/asttypes.cmi typing/includecore.cmi
 typing/includemod.cmo: typing/types.cmi typing/typedtree.cmi utils/tbl.cmi \
     typing/subst.cmi typing/printtyp.cmi typing/path.cmi typing/mtype.cmi \
     utils/miscutil.cmo typing/includecore.cmi typing/includeclass.cmi \
-    typing/ident.cmi typing/env.cmi typing/ctype.cmi typing/includemod.cmi 
+    typing/ident.cmi typing/env.cmi typing/ctype.cmi typing/includemod.cmi
 typing/includemod.cmx: typing/types.cmx typing/typedtree.cmx utils/tbl.cmx \
     typing/subst.cmx typing/printtyp.cmx typing/path.cmx typing/mtype.cmx \
     utils/miscutil.cmx typing/includecore.cmx typing/includeclass.cmx \
-    typing/ident.cmx typing/env.cmx typing/ctype.cmx typing/includemod.cmi 
+    typing/ident.cmx typing/env.cmx typing/ctype.cmx typing/includemod.cmi
 typing/mtype.cmo: typing/types.cmi typing/subst.cmi typing/path.cmi \
     typing/ident.cmi typing/env.cmi typing/ctype.cmi typing/btype.cmi \
-    typing/mtype.cmi 
+    typing/mtype.cmi
 typing/mtype.cmx: typing/types.cmx typing/subst.cmx typing/path.cmx \
     typing/ident.cmx typing/env.cmx typing/ctype.cmx typing/btype.cmx \
-    typing/mtype.cmi 
+    typing/mtype.cmi
 typing/oprint.cmo: typing/outcometree.cmi parsing/asttypes.cmi \
-    typing/oprint.cmi 
+    typing/oprint.cmi
 typing/oprint.cmx: typing/outcometree.cmi parsing/asttypes.cmi \
-    typing/oprint.cmi 
+    typing/oprint.cmi
 typing/parmatch.cmo: utils/warnings.cmi typing/types.cmi typing/typedtree.cmi \
     typing/predef.cmi typing/path.cmi utils/miscutil.cmo parsing/location.cmi \
     typing/ident.cmi typing/env.cmi typing/datarepr.cmi typing/ctype.cmi \
-    typing/btype.cmi parsing/asttypes.cmi typing/parmatch.cmi 
+    typing/btype.cmi parsing/asttypes.cmi typing/parmatch.cmi
 typing/parmatch.cmx: utils/warnings.cmx typing/types.cmx typing/typedtree.cmx \
     typing/predef.cmx typing/path.cmx utils/miscutil.cmx parsing/location.cmx \
     typing/ident.cmx typing/env.cmx typing/datarepr.cmx typing/ctype.cmx \
-    typing/btype.cmx parsing/asttypes.cmi typing/parmatch.cmi 
-typing/path.cmo: typing/ident.cmi typing/path.cmi 
-typing/path.cmx: typing/ident.cmx typing/path.cmi 
+    typing/btype.cmx parsing/asttypes.cmi typing/parmatch.cmi
+typing/path.cmo: typing/ident.cmi typing/path.cmi
+typing/path.cmx: typing/ident.cmx typing/path.cmi
 typing/predef.cmo: typing/types.cmi typing/path.cmi typing/ident.cmi \
-    typing/btype.cmi parsing/asttypes.cmi typing/predef.cmi 
+    typing/btype.cmi parsing/asttypes.cmi typing/predef.cmi
 typing/predef.cmx: typing/types.cmx typing/path.cmx typing/ident.cmx \
-    typing/btype.cmx parsing/asttypes.cmi typing/predef.cmi 
+    typing/btype.cmx parsing/asttypes.cmi typing/predef.cmi
 typing/predicate.cmo: typing/types.cmi typing/path.cmi parsing/parsetree.cmi \
-    utils/misc.cmi parsing/longident.cmi typing/env.cmi typing/common.cmo \
-    parsing/asttypes.cmi typing/predicate.cmi 
+    parsing/longident.cmi external/misc/_build/fixMisc.cmo typing/env.cmi \
+    typing/common.cmo parsing/asttypes.cmi typing/predicate.cmi
 typing/predicate.cmx: typing/types.cmx typing/path.cmx parsing/parsetree.cmi \
-    utils/misc.cmi parsing/longident.cmx typing/env.cmx typing/common.cmx \
-    parsing/asttypes.cmi typing/predicate.cmi 
-typing/primitive.cmo: utils/miscutil.cmo typing/primitive.cmi 
-typing/primitive.cmx: utils/miscutil.cmx typing/primitive.cmi 
+    parsing/longident.cmx external/misc/_build/fixMisc.cmx typing/env.cmx \
+    typing/common.cmx parsing/asttypes.cmi typing/predicate.cmi
+typing/primitive.cmo: utils/miscutil.cmo typing/primitive.cmi
+typing/primitive.cmx: utils/miscutil.cmx typing/primitive.cmi
 typing/printtyp.cmo: typing/types.cmi typing/primitive.cmi typing/predef.cmi \
     typing/path.cmi typing/outcometree.cmi typing/oprint.cmi \
     utils/miscutil.cmo parsing/longident.cmi typing/ident.cmi typing/env.cmi \
     typing/ctype.cmi utils/clflags.cmi typing/btype.cmi parsing/asttypes.cmi \
-    typing/printtyp.cmi 
+    typing/printtyp.cmi
 typing/printtyp.cmx: typing/types.cmx typing/primitive.cmx typing/predef.cmx \
     typing/path.cmx typing/outcometree.cmi typing/oprint.cmx \
     utils/miscutil.cmx parsing/longident.cmx typing/ident.cmx typing/env.cmx \
     typing/ctype.cmx utils/clflags.cmx typing/btype.cmx parsing/asttypes.cmi \
-    typing/printtyp.cmi 
+    typing/printtyp.cmi
 typing/qualgen.cmo: typing/types.cmi typing/typedtree.cmi typing/path.cmi \
-    utils/misc.cmi typing/ident.cmi typing/common.cmo utils/clflags.cmi \
-    parsing/asttypes.cmi 
+    typing/ident.cmi external/misc/_build/fixMisc.cmo typing/common.cmo \
+    utils/clflags.cmi parsing/asttypes.cmi
 typing/qualgen.cmx: typing/types.cmx typing/typedtree.cmx typing/path.cmx \
-    utils/misc.cmi typing/ident.cmx typing/common.cmx utils/clflags.cmx \
-    parsing/asttypes.cmi 
+    typing/ident.cmx external/misc/_build/fixMisc.cmx typing/common.cmx \
+    utils/clflags.cmx parsing/asttypes.cmi
 typing/stypes.cmo: typing/typedtree.cmi typing/printtyp.cmi \
-    parsing/location.cmi utils/clflags.cmi typing/stypes.cmi 
+    parsing/location.cmi utils/clflags.cmi typing/stypes.cmi
 typing/stypes.cmx: typing/typedtree.cmx typing/printtyp.cmx \
-    parsing/location.cmx utils/clflags.cmx typing/stypes.cmi 
+    parsing/location.cmx utils/clflags.cmx typing/stypes.cmi
 typing/subst.cmo: typing/types.cmi utils/tbl.cmi typing/path.cmi \
-    utils/miscutil.cmo typing/ident.cmi typing/btype.cmi typing/subst.cmi 
+    utils/miscutil.cmo typing/ident.cmi typing/btype.cmi typing/subst.cmi
 typing/subst.cmx: typing/types.cmx utils/tbl.cmx typing/path.cmx \
-    utils/miscutil.cmx typing/ident.cmx typing/btype.cmx typing/subst.cmi 
+    utils/miscutil.cmx typing/ident.cmx typing/btype.cmx typing/subst.cmi
 typing/typeclass.cmo: utils/warnings.cmi typing/typetexp.cmi typing/types.cmi \
     typing/typedtree.cmi typing/typedecl.cmi typing/typecore.cmi \
     typing/subst.cmi typing/stypes.cmi typing/printtyp.cmi typing/predef.cmi \
@@ -231,7 +257,7 @@ typing/typeclass.cmo: utils/warnings.cmi typing/typetexp.cmi typing/types.cmi \
     utils/miscutil.cmo parsing/longident.cmi parsing/location.cmi \
     typing/includeclass.cmi typing/ident.cmi typing/env.cmi typing/ctype.cmi \
     utils/clflags.cmi typing/btype.cmi parsing/asttypes.cmi \
-    typing/typeclass.cmi 
+    typing/typeclass.cmi
 typing/typeclass.cmx: utils/warnings.cmx typing/typetexp.cmx typing/types.cmx \
     typing/typedtree.cmx typing/typedecl.cmx typing/typecore.cmx \
     typing/subst.cmx typing/stypes.cmx typing/printtyp.cmx typing/predef.cmx \
@@ -239,41 +265,41 @@ typing/typeclass.cmx: utils/warnings.cmx typing/typetexp.cmx typing/types.cmx \
     utils/miscutil.cmx parsing/longident.cmx parsing/location.cmx \
     typing/includeclass.cmx typing/ident.cmx typing/env.cmx typing/ctype.cmx \
     utils/clflags.cmx typing/btype.cmx parsing/asttypes.cmi \
-    typing/typeclass.cmi 
+    typing/typeclass.cmi
 typing/typecore.cmo: utils/warnings.cmi typing/typetexp.cmi typing/types.cmi \
     typing/typedtree.cmi typing/stypes.cmi typing/printtyp.cmi \
     typing/primitive.cmi typing/predef.cmi typing/path.cmi \
     parsing/parsetree.cmi typing/parmatch.cmi utils/miscutil.cmo \
     parsing/longident.cmi parsing/location.cmi typing/ident.cmi \
     typing/env.cmi typing/ctype.cmi utils/clflags.cmi typing/btype.cmi \
-    parsing/asttypes.cmi typing/typecore.cmi 
+    parsing/asttypes.cmi typing/typecore.cmi
 typing/typecore.cmx: utils/warnings.cmx typing/typetexp.cmx typing/types.cmx \
     typing/typedtree.cmx typing/stypes.cmx typing/printtyp.cmx \
     typing/primitive.cmx typing/predef.cmx typing/path.cmx \
     parsing/parsetree.cmi typing/parmatch.cmx utils/miscutil.cmx \
     parsing/longident.cmx parsing/location.cmx typing/ident.cmx \
     typing/env.cmx typing/ctype.cmx utils/clflags.cmx typing/btype.cmx \
-    parsing/asttypes.cmi typing/typecore.cmi 
+    parsing/asttypes.cmi typing/typecore.cmi
 typing/typedecl.cmo: typing/typetexp.cmi typing/types.cmi \
     typing/typedtree.cmi typing/subst.cmi typing/printtyp.cmi \
     typing/primitive.cmi typing/predef.cmi typing/path.cmi \
     parsing/parsetree.cmi utils/miscutil.cmo parsing/longident.cmi \
     parsing/location.cmi typing/includecore.cmi typing/ident.cmi \
     typing/env.cmi typing/ctype.cmi utils/config.cmi utils/clflags.cmi \
-    typing/btype.cmi parsing/asttypes.cmi typing/typedecl.cmi 
+    typing/btype.cmi parsing/asttypes.cmi typing/typedecl.cmi
 typing/typedecl.cmx: typing/typetexp.cmx typing/types.cmx \
     typing/typedtree.cmx typing/subst.cmx typing/printtyp.cmx \
     typing/primitive.cmx typing/predef.cmx typing/path.cmx \
     parsing/parsetree.cmi utils/miscutil.cmx parsing/longident.cmx \
     parsing/location.cmx typing/includecore.cmx typing/ident.cmx \
     typing/env.cmx typing/ctype.cmx utils/config.cmx utils/clflags.cmx \
-    typing/btype.cmx parsing/asttypes.cmi typing/typedecl.cmi 
+    typing/btype.cmx parsing/asttypes.cmi typing/typedecl.cmi
 typing/typedtree.cmo: typing/types.cmi typing/primitive.cmi typing/path.cmi \
     utils/miscutil.cmo parsing/location.cmi typing/ident.cmi typing/env.cmi \
-    parsing/asttypes.cmi typing/typedtree.cmi 
+    parsing/asttypes.cmi typing/typedtree.cmi
 typing/typedtree.cmx: typing/types.cmx typing/primitive.cmx typing/path.cmx \
     utils/miscutil.cmx parsing/location.cmx typing/ident.cmx typing/env.cmx \
-    parsing/asttypes.cmi typing/typedtree.cmi 
+    parsing/asttypes.cmi typing/typedtree.cmi
 typing/typemod.cmo: typing/types.cmi typing/typedtree.cmi typing/typedecl.cmi \
     typing/typecore.cmi typing/typeclass.cmi typing/subst.cmi \
     typing/stypes.cmi typing/printtyp.cmi typing/path.cmi \
@@ -281,7 +307,7 @@ typing/typemod.cmo: typing/types.cmi typing/typedtree.cmi typing/typedecl.cmi \
     parsing/longident.cmi parsing/location.cmi typing/includemod.cmi \
     typing/ident.cmi typing/env.cmi typing/ctype.cmi utils/config.cmi \
     utils/clflags.cmi typing/btype.cmi parsing/asttypes.cmi \
-    typing/typemod.cmi 
+    typing/typemod.cmi
 typing/typemod.cmx: typing/types.cmx typing/typedtree.cmx typing/typedecl.cmx \
     typing/typecore.cmx typing/typeclass.cmx typing/subst.cmx \
     typing/stypes.cmx typing/printtyp.cmx typing/path.cmx \
@@ -289,242 +315,259 @@ typing/typemod.cmx: typing/types.cmx typing/typedtree.cmx typing/typedecl.cmx \
     parsing/longident.cmx parsing/location.cmx typing/includemod.cmx \
     typing/ident.cmx typing/env.cmx typing/ctype.cmx utils/config.cmx \
     utils/clflags.cmx typing/btype.cmx parsing/asttypes.cmi \
-    typing/typemod.cmi 
+    typing/typemod.cmi
 typing/types.cmo: typing/primitive.cmi typing/predicate.cmi typing/path.cmi \
-    utils/miscutil.cmo typing/ident.cmi parsing/asttypes.cmi typing/types.cmi 
+    utils/miscutil.cmo typing/ident.cmi parsing/asttypes.cmi typing/types.cmi
 typing/types.cmx: typing/primitive.cmx typing/predicate.cmx typing/path.cmx \
-    utils/miscutil.cmx typing/ident.cmx parsing/asttypes.cmi typing/types.cmi 
+    utils/miscutil.cmx typing/ident.cmx parsing/asttypes.cmi typing/types.cmi
 typing/typetexp.cmo: utils/warnings.cmi typing/types.cmi utils/tbl.cmi \
     typing/printtyp.cmi typing/path.cmi parsing/parsetree.cmi \
     utils/miscutil.cmo parsing/longident.cmi parsing/location.cmi \
     typing/env.cmi typing/ctype.cmi utils/clflags.cmi typing/btype.cmi \
-    typing/typetexp.cmi 
+    typing/typetexp.cmi
 typing/typetexp.cmx: utils/warnings.cmx typing/types.cmx utils/tbl.cmx \
     typing/printtyp.cmx typing/path.cmx parsing/parsetree.cmi \
     utils/miscutil.cmx parsing/longident.cmx parsing/location.cmx \
     typing/env.cmx typing/ctype.cmx utils/clflags.cmx typing/btype.cmx \
-    typing/typetexp.cmi 
+    typing/typetexp.cmi
 typing/unused_var.cmo: utils/warnings.cmi parsing/parsetree.cmi \
     parsing/longident.cmi parsing/location.cmi parsing/asttypes.cmi \
-    typing/unused_var.cmi 
+    typing/unused_var.cmi
 typing/unused_var.cmx: utils/warnings.cmx parsing/parsetree.cmi \
     parsing/longident.cmx parsing/location.cmx parsing/asttypes.cmi \
-    typing/unused_var.cmi 
-liquid/consdef.cmi: liquid/qualifier.cmi typing/predicate.cmi typing/path.cmi \
-    utils/misc.cmi parsing/location.cmi liquid/liqenv.cmo liquid/frame.cmi \
-    external/fixpoint/_build/fixConstraint.cmi typing/env.cmi 
-liquid/constraint.cmi: liquid/qualifier.cmi parsing/parsetree.cmi \
-    liquid/liqenv.cmo liquid/frame.cmi typing/env.cmi liquid/consdef.cmi 
-liquid/fixInterface.cmi: liquid/qualifier.cmi typing/predicate.cmi \
+    typing/unused_var.cmi
+liquid/consdef.cmi: typing/predicate.cmi typing/path.cmi \
+    liquid/lqualifier.cmi parsing/location.cmi liquid/liqenv.cmo \
+    liquid/frame.cmi external/misc/_build/fixMisc.cmo \
+    external/fixpoint/_build/fixConstraint.cmi typing/env.cmi
+liquid/constraint.cmi: parsing/parsetree.cmi liquid/lqualifier.cmi \
+    liquid/liqenv.cmo liquid/frame.cmi typing/env.cmi liquid/consdef.cmi
+liquid/fixInterface.cmi: typing/predicate.cmi liquid/lqualifier.cmi \
     liquid/liqenv.cmo liquid/frame.cmi \
-    external/fixpoint/_build/fixConstraint.cmi liquid/consdef.cmi 
-liquid/frame.cmi: typing/types.cmi typing/typedtree.cmi liquid/qualifier.cmi \
-    typing/predicate.cmi typing/path.cmi liquid/liqenv.cmo typing/ident.cmi \
-    typing/env.cmi parsing/asttypes.cmi 
-liquid/normalize.cmi: parsing/parsetree.cmi parsing/location.cmi 
+    external/fixpoint/_build/fixConstraint.cmi liquid/consdef.cmi
+liquid/frame.cmi: typing/types.cmi typing/typedtree.cmi typing/predicate.cmi \
+    typing/path.cmi liquid/lqualifier.cmi liquid/liqenv.cmo typing/ident.cmi \
+    typing/env.cmi parsing/asttypes.cmi
+liquid/liqerrors.cmi:
+liquid/lqualifier.cmi: typing/predicate.cmi typing/path.cmi liquid/liqenv.cmo \
+    external/misc/_build/fixMisc.cmo
+liquid/message.cmi:
+liquid/normalize.cmi: parsing/parsetree.cmi parsing/location.cmi
 liquid/pattern.cmi: typing/types.cmi typing/typedtree.cmi \
-    typing/predicate.cmi typing/path.cmi typing/ident.cmi liquid/frame.cmi 
-liquid/predglue.cmi: typing/predicate.cmi typing/path.cmi liquid/frame.cmi \
-    external/fixpoint/_build/ast.cmi 
-liquid/qdebug.cmi: liquid/qualifymod.cmi parsing/parsetree.cmi 
-liquid/qualifier.cmi: typing/predicate.cmi typing/path.cmi utils/misc.cmi \
-    liquid/liqenv.cmo 
+    typing/predicate.cmi typing/path.cmi typing/ident.cmi liquid/frame.cmi
+liquid/qdebug.cmi: liquid/qualifymod.cmi parsing/parsetree.cmi
 liquid/qualifymod.cmi: typing/typedtree.cmi parsing/parsetree.cmi \
     parsing/location.cmi liquid/liqenv.cmo liquid/frame.cmi typing/env.cmi \
-    liquid/constraint.cmi 
-liquid/wellformed.cmi: liquid/qualifier.cmi typing/predicate.cmi \
-    liquid/liqenv.cmo liquid/frame.cmi 
+    liquid/constraint.cmi
+liquid/wellformed.cmi: typing/predicate.cmi liquid/lqualifier.cmi \
+    liquid/liqenv.cmo liquid/frame.cmi
 liquid/builtins.cmo: typing/types.cmi typing/predicate.cmi typing/predef.cmi \
-    typing/path.cmi typing/ident.cmi liquid/frame.cmi typing/common.cmo 
+    typing/path.cmi typing/ident.cmi liquid/frame.cmi typing/common.cmo
 liquid/builtins.cmx: typing/types.cmx typing/predicate.cmx typing/predef.cmx \
-    typing/path.cmx typing/ident.cmx liquid/frame.cmx typing/common.cmx 
-liquid/consdef.cmo: liquid/wellformed.cmi liquid/qualifier.cmi \
-    typing/predicate.cmi typing/path.cmi typing/oprint.cmi utils/misc.cmi \
+    typing/path.cmx typing/ident.cmx liquid/frame.cmx typing/common.cmx
+liquid/consdef.cmo: liquid/wellformed.cmi typing/predicate.cmi \
+    typing/path.cmi typing/oprint.cmi liquid/lqualifier.cmi \
     parsing/location.cmi liquid/liqenv.cmo liquid/frame.cmi \
+    external/misc/_build/fixMisc.cmo \
     external/fixpoint/_build/fixConstraint.cmi typing/env.cmi \
-    external/misc/_build/constants.cmo typing/common.cmo liquid/consdef.cmi 
-liquid/consdef.cmx: liquid/wellformed.cmx liquid/qualifier.cmx \
-    typing/predicate.cmx typing/path.cmx typing/oprint.cmx utils/misc.cmi \
+    external/misc/_build/constants.cmo typing/common.cmo liquid/consdef.cmi
+liquid/consdef.cmx: liquid/wellformed.cmx typing/predicate.cmx \
+    typing/path.cmx typing/oprint.cmx liquid/lqualifier.cmx \
     parsing/location.cmx liquid/liqenv.cmx liquid/frame.cmx \
+    external/misc/_build/fixMisc.cmx \
     external/fixpoint/_build/fixConstraint.cmx typing/env.cmx \
-    external/misc/_build/constants.cmx typing/common.cmx liquid/consdef.cmi 
+    external/misc/_build/constants.cmx typing/common.cmx liquid/consdef.cmi
 liquid/constraint.cmo: liquid/wellformed.cmi typing/types.cmi \
     typing/typedtree.cmi utils/trie.cmo liquid/theoremProver.cmo \
-    liquid/qualifier.cmi liquid/qualdecl.cmo typing/predicate.cmi \
-    liquid/pattern.cmi typing/path.cmi utils/mystats.cmo utils/misc.cmi \
+    liquid/qualdecl.cmo typing/predicate.cmi liquid/pattern.cmi \
+    typing/path.cmi utils/mystats.cmo liquid/lqualifier.cmi \
     parsing/location.cmi liquid/liqenv.cmo typing/ident.cmi utils/heap.cmi \
-    liquid/frame.cmi liquid/fixInterface.cmi \
-    external/fixpoint/_build/fixConstraint.cmi \
+    liquid/frame.cmi external/misc/_build/fixMisc.cmo liquid/fixInterface.cmi \
     external/misc/_build/constants.cmo liquid/consdef.cmi typing/common.cmo \
     utils/clflags.cmi liquid/builtins.cmo utils/bstats.cmi \
-    liquid/constraint.cmi 
+    liquid/constraint.cmi
 liquid/constraint.cmx: liquid/wellformed.cmx typing/types.cmx \
     typing/typedtree.cmx utils/trie.cmx liquid/theoremProver.cmx \
-    liquid/qualifier.cmx liquid/qualdecl.cmx typing/predicate.cmx \
-    liquid/pattern.cmx typing/path.cmx utils/mystats.cmx utils/misc.cmi \
+    liquid/qualdecl.cmx typing/predicate.cmx liquid/pattern.cmx \
+    typing/path.cmx utils/mystats.cmx liquid/lqualifier.cmx \
     parsing/location.cmx liquid/liqenv.cmx typing/ident.cmx utils/heap.cmx \
-    liquid/frame.cmx liquid/fixInterface.cmx \
-    external/fixpoint/_build/fixConstraint.cmx \
+    liquid/frame.cmx external/misc/_build/fixMisc.cmx liquid/fixInterface.cmx \
     external/misc/_build/constants.cmx liquid/consdef.cmx typing/common.cmx \
     utils/clflags.cmx liquid/builtins.cmx utils/bstats.cmx \
-    liquid/constraint.cmi 
+    liquid/constraint.cmi
 liquid/fixInterface.cmo: external/fixpoint/_build/solve.cmi \
-    typing/predicate.cmi typing/predef.cmi typing/path.cmi \
-    parsing/parsetree.cmi utils/miscutil.cmo utils/misc.cmi liquid/liqenv.cmo \
-    liquid/frame.cmi external/fixpoint/_build/fixConstraint.cmi \
-    liquid/consdef.cmi typing/common.cmo external/fixpoint/_build/ast.cmi \
-    liquid/fixInterface.cmi 
+    liquid/lqualifier.cmi typing/predicate.cmi typing/predef.cmi \
+    external/fixpoint/_build/predAbs.cmi typing/path.cmi \
+    parsing/parsetree.cmi utils/miscutil.cmo liquid/liqenv.cmo \
+    liquid/frame.cmi external/misc/_build/fixMisc.cmo \
+    external/fixpoint/_build/fixConstraint.cmi \
+    external/fixpoint/_build/fixConfig.cmi liquid/consdef.cmi \
+    typing/common.cmo utils/clflags.cmi external/fixpoint/_build/ast.cmi \
+    liquid/fixInterface.cmi
 liquid/fixInterface.cmx: external/fixpoint/_build/solve.cmx \
-    typing/predicate.cmx typing/predef.cmx typing/path.cmx \
-    parsing/parsetree.cmi utils/miscutil.cmx utils/misc.cmi liquid/liqenv.cmx \
-    liquid/frame.cmx external/fixpoint/_build/fixConstraint.cmx \
-    liquid/consdef.cmx typing/common.cmx external/fixpoint/_build/ast.cmx \
-    liquid/fixInterface.cmi 
+    liquid/lqualifier.cmx typing/predicate.cmx typing/predef.cmx \
+    external/fixpoint/_build/predAbs.cmx typing/path.cmx \
+    parsing/parsetree.cmi utils/miscutil.cmx liquid/liqenv.cmx \
+    liquid/frame.cmx external/misc/_build/fixMisc.cmx \
+    external/fixpoint/_build/fixConstraint.cmx \
+    external/fixpoint/_build/fixConfig.cmx liquid/consdef.cmx \
+    typing/common.cmx utils/clflags.cmx external/fixpoint/_build/ast.cmx \
+    liquid/fixInterface.cmi
 liquid/frame.cmo: typing/typetexp.cmi typing/types.cmi typing/typedtree.cmi \
-    liquid/qualifier.cmi typing/predicate.cmi typing/predef.cmi \
-    liquid/pattern.cmi typing/path.cmi parsing/parsetree.cmi \
-    utils/miscutil.cmo utils/misc.cmi liquid/liqenv.cmo typing/ident.cmi \
+    typing/predicate.cmi typing/predef.cmi liquid/pattern.cmi typing/path.cmi \
+    parsing/parsetree.cmi utils/miscutil.cmo liquid/lqualifier.cmi \
+    liquid/liqenv.cmo typing/ident.cmi external/misc/_build/fixMisc.cmo \
     typing/env.cmi typing/common.cmo utils/clflags.cmi typing/btype.cmi \
-    parsing/asttypes.cmi liquid/frame.cmi 
+    parsing/asttypes.cmi liquid/frame.cmi
 liquid/frame.cmx: typing/typetexp.cmx typing/types.cmx typing/typedtree.cmx \
-    liquid/qualifier.cmx typing/predicate.cmx typing/predef.cmx \
-    liquid/pattern.cmx typing/path.cmx parsing/parsetree.cmi \
-    utils/miscutil.cmx utils/misc.cmi liquid/liqenv.cmx typing/ident.cmx \
+    typing/predicate.cmx typing/predef.cmx liquid/pattern.cmx typing/path.cmx \
+    parsing/parsetree.cmi utils/miscutil.cmx liquid/lqualifier.cmx \
+    liquid/liqenv.cmx typing/ident.cmx external/misc/_build/fixMisc.cmx \
     typing/env.cmx typing/common.cmx utils/clflags.cmx typing/btype.cmx \
-    parsing/asttypes.cmi liquid/frame.cmi 
-liquid/liqenv.cmo: typing/path.cmi typing/common.cmo 
-liquid/liqenv.cmx: typing/path.cmx typing/common.cmx 
+    parsing/asttypes.cmi liquid/frame.cmi
+liquid/liqenv.cmo: typing/path.cmi typing/common.cmo
+liquid/liqenv.cmx: typing/path.cmx typing/common.cmx
 liquid/liqerrors.cmo: typing/typetexp.cmi typing/typemod.cmi \
     typing/typedecl.cmi typing/typecore.cmi typing/typeclass.cmi \
     parsing/syntaxerr.cmi liquid/qualifymod.cmi parsing/pparse.cmi \
     parsing/location.cmi parsing/lexer.cmo typing/includemod.cmi \
-    typing/env.cmi typing/ctype.cmi liquid/liqerrors.cmi 
+    typing/env.cmi typing/ctype.cmi liquid/liqerrors.cmi
 liquid/liqerrors.cmx: typing/typetexp.cmx typing/typemod.cmx \
     typing/typedecl.cmx typing/typecore.cmx typing/typeclass.cmx \
     parsing/syntaxerr.cmx liquid/qualifymod.cmx parsing/pparse.cmx \
     parsing/location.cmx parsing/lexer.cmx typing/includemod.cmx \
-    typing/env.cmx typing/ctype.cmx liquid/liqerrors.cmi 
+    typing/env.cmx typing/ctype.cmx liquid/liqerrors.cmi
 liquid/liquid.cmo: utils/warnings.cmi typing/types.cmi typing/typemod.cmi \
     typing/typecore.cmi liquid/qualifymod.cmi typing/qualgen.cmo \
     liquid/qdump.cmo liquid/qdebug.cmi parsing/printast.cmi \
     typing/predicate.cmi parsing/pparse.cmi typing/path.cmi parsing/parse.cmi \
-    liquid/normalize.cmi liquid/mlqmod.cmo utils/miscutil.cmo utils/misc.cmi \
+    liquid/normalize.cmi liquid/mlqmod.cmo utils/miscutil.cmo \
     liquid/measure.cmo parsing/location.cmi liquid/liqerrors.cmi \
-    liquid/liqenv.cmo typing/ident.cmi liquid/frame.cmi typing/env.cmi \
-    liquid/constraint.cmi external/misc/_build/constants.cmo utils/config.cmi \
-    typing/common.cmo utils/clflags.cmi utils/bstats.cmi 
+    liquid/liqenv.cmo typing/ident.cmi liquid/frame.cmi \
+    external/misc/_build/fixMisc.cmo typing/env.cmi liquid/constraint.cmi \
+    external/misc/_build/constants.cmo utils/config.cmi typing/common.cmo \
+    utils/clflags.cmi utils/bstats.cmi
 liquid/liquid.cmx: utils/warnings.cmx typing/types.cmx typing/typemod.cmx \
     typing/typecore.cmx liquid/qualifymod.cmx typing/qualgen.cmx \
     liquid/qdump.cmx liquid/qdebug.cmx parsing/printast.cmx \
     typing/predicate.cmx parsing/pparse.cmx typing/path.cmx parsing/parse.cmx \
-    liquid/normalize.cmx liquid/mlqmod.cmx utils/miscutil.cmx utils/misc.cmi \
+    liquid/normalize.cmx liquid/mlqmod.cmx utils/miscutil.cmx \
     liquid/measure.cmx parsing/location.cmx liquid/liqerrors.cmx \
-    liquid/liqenv.cmx typing/ident.cmx liquid/frame.cmx typing/env.cmx \
-    liquid/constraint.cmx external/misc/_build/constants.cmx utils/config.cmx \
-    typing/common.cmx utils/clflags.cmx utils/bstats.cmx 
+    liquid/liqenv.cmx typing/ident.cmx liquid/frame.cmx \
+    external/misc/_build/fixMisc.cmx typing/env.cmx liquid/constraint.cmx \
+    external/misc/_build/constants.cmx utils/config.cmx typing/common.cmx \
+    utils/clflags.cmx utils/bstats.cmx
+liquid/lqualifier.cmo: typing/predicate.cmi typing/path.cmi utils/mystats.cmo \
+    liquid/liqenv.cmo external/misc/_build/fixMisc.cmo utils/bstats.cmi \
+    liquid/lqualifier.cmi
+liquid/lqualifier.cmx: typing/predicate.cmx typing/path.cmx utils/mystats.cmx \
+    liquid/liqenv.cmx external/misc/_build/fixMisc.cmx utils/bstats.cmx \
+    liquid/lqualifier.cmi
 liquid/measure.cmo: liquid/wellformed.cmi typing/types.cmi \
-    typing/typedtree.cmi liquid/qualifier.cmi liquid/qualdecl.cmo \
-    typing/predicate.cmi typing/path.cmi parsing/parsetree.cmi utils/misc.cmi \
-    parsing/longident.cmi liquid/liqenv.cmo liquid/frame.cmi typing/env.cmi \
-    typing/ctype.cmi external/misc/_build/constants.cmo typing/common.cmo 
+    typing/typedtree.cmi liquid/qualdecl.cmo typing/predicate.cmi \
+    typing/path.cmi parsing/parsetree.cmi liquid/lqualifier.cmi \
+    parsing/longident.cmi liquid/liqenv.cmo liquid/frame.cmi \
+    external/misc/_build/fixMisc.cmo typing/env.cmi typing/ctype.cmi \
+    external/misc/_build/constants.cmo typing/common.cmo
 liquid/measure.cmx: liquid/wellformed.cmx typing/types.cmx \
-    typing/typedtree.cmx liquid/qualifier.cmx liquid/qualdecl.cmx \
-    typing/predicate.cmx typing/path.cmx parsing/parsetree.cmi utils/misc.cmi \
-    parsing/longident.cmx liquid/liqenv.cmx liquid/frame.cmx typing/env.cmx \
-    typing/ctype.cmx external/misc/_build/constants.cmx typing/common.cmx 
-liquid/message.cmo: liquid/message.cmi 
-liquid/message.cmx: liquid/message.cmi 
+    typing/typedtree.cmx liquid/qualdecl.cmx typing/predicate.cmx \
+    typing/path.cmx parsing/parsetree.cmi liquid/lqualifier.cmx \
+    parsing/longident.cmx liquid/liqenv.cmx liquid/frame.cmx \
+    external/misc/_build/fixMisc.cmx typing/env.cmx typing/ctype.cmx \
+    external/misc/_build/constants.cmx typing/common.cmx
+liquid/message.cmo: liquid/message.cmi
+liquid/message.cmx: liquid/message.cmi
 liquid/mlqmod.cmo: typing/typetexp.cmi typing/types.cmi \
     liquid/theoremProver.cmo liquid/qualdecl.cmo typing/predicate.cmi \
     parsing/pparse.cmi typing/path.cmi parsing/parsetree.cmi \
-    parsing/parse.cmi utils/miscutil.cmo utils/misc.cmi liquid/measure.cmo \
+    parsing/parse.cmi utils/miscutil.cmo liquid/measure.cmo \
     parsing/longident.cmi parsing/location.cmi typing/ident.cmi \
-    liquid/frame.cmi typing/env.cmi utils/config.cmi typing/common.cmo \
-    liquid/builtins.cmo 
+    liquid/frame.cmi external/misc/_build/fixMisc.cmo typing/env.cmi \
+    utils/config.cmi typing/common.cmo liquid/builtins.cmo
 liquid/mlqmod.cmx: typing/typetexp.cmx typing/types.cmx \
     liquid/theoremProver.cmx liquid/qualdecl.cmx typing/predicate.cmx \
     parsing/pparse.cmx typing/path.cmx parsing/parsetree.cmi \
-    parsing/parse.cmx utils/miscutil.cmx utils/misc.cmi liquid/measure.cmx \
+    parsing/parse.cmx utils/miscutil.cmx liquid/measure.cmx \
     parsing/longident.cmx parsing/location.cmx typing/ident.cmx \
-    liquid/frame.cmx typing/env.cmx utils/config.cmx typing/common.cmx \
-    liquid/builtins.cmx 
+    liquid/frame.cmx external/misc/_build/fixMisc.cmx typing/env.cmx \
+    utils/config.cmx typing/common.cmx liquid/builtins.cmx
 liquid/normalize.cmo: parsing/quotations.cmi liquid/qdebug.cmi \
-    parsing/parsetree.cmi utils/misc.cmi parsing/longident.cmi \
-    parsing/location.cmi typing/common.cmo parsing/asttypes.cmi \
-    liquid/normalize.cmi 
+    parsing/parsetree.cmi parsing/longident.cmi parsing/location.cmi \
+    external/misc/_build/fixMisc.cmo typing/common.cmo parsing/asttypes.cmi \
+    liquid/normalize.cmi
 liquid/normalize.cmx: parsing/quotations.cmx liquid/qdebug.cmx \
-    parsing/parsetree.cmi utils/misc.cmi parsing/longident.cmx \
-    parsing/location.cmx typing/common.cmx parsing/asttypes.cmi \
-    liquid/normalize.cmi 
+    parsing/parsetree.cmi parsing/longident.cmx parsing/location.cmx \
+    external/misc/_build/fixMisc.cmx typing/common.cmx parsing/asttypes.cmi \
+    liquid/normalize.cmi
 liquid/pattern.cmo: typing/types.cmi typing/typedtree.cmi \
-    typing/predicate.cmi typing/path.cmi utils/miscutil.cmo utils/misc.cmi \
-    typing/ident.cmi typing/ctype.cmi typing/common.cmo liquid/pattern.cmi 
+    typing/predicate.cmi typing/path.cmi utils/miscutil.cmo typing/ident.cmi \
+    external/misc/_build/fixMisc.cmo typing/ctype.cmi typing/common.cmo \
+    liquid/pattern.cmi
 liquid/pattern.cmx: typing/types.cmx typing/typedtree.cmx \
-    typing/predicate.cmx typing/path.cmx utils/miscutil.cmx utils/misc.cmi \
-    typing/ident.cmx typing/ctype.cmx typing/common.cmx liquid/pattern.cmi 
-liquid/predglue.cmo: liquid/predglue.cmi 
-liquid/predglue.cmx: liquid/predglue.cmi 
+    typing/predicate.cmx typing/path.cmx utils/miscutil.cmx typing/ident.cmx \
+    external/misc/_build/fixMisc.cmx typing/ctype.cmx typing/common.cmx \
+    liquid/pattern.cmi
 liquid/qdebug.cmo: typing/types.cmi typing/typedtree.cmi \
     liquid/qualifymod.cmi parsing/parsetree.cmi parsing/longident.cmi \
-    typing/common.cmo typing/btype.cmi parsing/asttypes.cmi liquid/qdebug.cmi 
+    typing/common.cmo typing/btype.cmi parsing/asttypes.cmi liquid/qdebug.cmi
 liquid/qdebug.cmx: typing/types.cmx typing/typedtree.cmx \
     liquid/qualifymod.cmx parsing/parsetree.cmi parsing/longident.cmx \
-    typing/common.cmx typing/btype.cmx parsing/asttypes.cmi liquid/qdebug.cmi 
+    typing/common.cmx typing/btype.cmx parsing/asttypes.cmi liquid/qdebug.cmi
 liquid/qdump.cmo: typing/qualgen.cmo typing/predicate.cmi typing/path.cmi \
-    parsing/parsetree.cmi utils/misc.cmi liquid/measure.cmo liquid/liqenv.cmo \
-    typing/ident.cmi liquid/frame.cmi external/misc/_build/constants.cmo \
-    utils/config.cmi typing/common.cmo utils/clflags.cmi parsing/asttypes.cmi 
+    parsing/parsetree.cmi liquid/measure.cmo liquid/liqenv.cmo \
+    typing/ident.cmi liquid/frame.cmi external/misc/_build/fixMisc.cmo \
+    external/misc/_build/constants.cmo utils/config.cmi typing/common.cmo \
+    utils/clflags.cmi parsing/asttypes.cmi
 liquid/qdump.cmx: typing/qualgen.cmx typing/predicate.cmx typing/path.cmx \
-    parsing/parsetree.cmi utils/misc.cmi liquid/measure.cmx liquid/liqenv.cmx \
-    typing/ident.cmx liquid/frame.cmx external/misc/_build/constants.cmx \
-    utils/config.cmx typing/common.cmx utils/clflags.cmx parsing/asttypes.cmi 
+    parsing/parsetree.cmi liquid/measure.cmx liquid/liqenv.cmx \
+    typing/ident.cmx liquid/frame.cmx external/misc/_build/fixMisc.cmx \
+    external/misc/_build/constants.cmx utils/config.cmx typing/common.cmx \
+    utils/clflags.cmx parsing/asttypes.cmi
 liquid/qualdecl.cmo: typing/typetexp.cmi typing/predicate.cmi \
-    typing/predef.cmi typing/path.cmi parsing/parsetree.cmi utils/misc.cmi \
+    typing/predef.cmi typing/path.cmi parsing/parsetree.cmi \
     parsing/location.cmi liquid/liqenv.cmo typing/ident.cmi liquid/frame.cmi \
-    typing/common.cmo utils/bstats.cmi 
+    external/misc/_build/fixMisc.cmo typing/common.cmo utils/bstats.cmi
 liquid/qualdecl.cmx: typing/typetexp.cmx typing/predicate.cmx \
-    typing/predef.cmx typing/path.cmx parsing/parsetree.cmi utils/misc.cmi \
+    typing/predef.cmx typing/path.cmx parsing/parsetree.cmi \
     parsing/location.cmx liquid/liqenv.cmx typing/ident.cmx liquid/frame.cmx \
-    typing/common.cmx utils/bstats.cmx 
-liquid/qualifier.cmo: typing/predicate.cmi typing/path.cmi utils/mystats.cmo \
-    utils/misc.cmi liquid/liqenv.cmo utils/bstats.cmi liquid/qualifier.cmi 
-liquid/qualifier.cmx: typing/predicate.cmx typing/path.cmx utils/mystats.cmx \
-    utils/misc.cmi liquid/liqenv.cmx utils/bstats.cmx liquid/qualifier.cmi 
+    external/misc/_build/fixMisc.cmx typing/common.cmx utils/bstats.cmx
 liquid/qualifymod.cmo: liquid/wellformed.cmi typing/types.cmi \
     typing/typedtree.cmi typing/stypes.cmi typing/predicate.cmi \
     liquid/pattern.cmi typing/path.cmi parsing/parsetree.cmi \
-    utils/miscutil.cmo utils/misc.cmi liquid/measure.cmo \
-    parsing/longident.cmi parsing/location.cmi liquid/liqenv.cmo \
-    typing/ident.cmi liquid/frame.cmi typing/env.cmi liquid/constraint.cmi \
+    utils/miscutil.cmo liquid/measure.cmo parsing/longident.cmi \
+    parsing/location.cmi liquid/liqenv.cmo typing/ident.cmi liquid/frame.cmi \
+    external/misc/_build/fixMisc.cmo typing/env.cmi liquid/constraint.cmi \
     liquid/consdef.cmi typing/common.cmo utils/clflags.cmi \
     liquid/builtins.cmo typing/btype.cmi utils/bstats.cmi \
-    parsing/asttypes.cmi liquid/qualifymod.cmi 
+    parsing/asttypes.cmi liquid/qualifymod.cmi
 liquid/qualifymod.cmx: liquid/wellformed.cmx typing/types.cmx \
     typing/typedtree.cmx typing/stypes.cmx typing/predicate.cmx \
     liquid/pattern.cmx typing/path.cmx parsing/parsetree.cmi \
-    utils/miscutil.cmx utils/misc.cmi liquid/measure.cmx \
-    parsing/longident.cmx parsing/location.cmx liquid/liqenv.cmx \
-    typing/ident.cmx liquid/frame.cmx typing/env.cmx liquid/constraint.cmx \
+    utils/miscutil.cmx liquid/measure.cmx parsing/longident.cmx \
+    parsing/location.cmx liquid/liqenv.cmx typing/ident.cmx liquid/frame.cmx \
+    external/misc/_build/fixMisc.cmx typing/env.cmx liquid/constraint.cmx \
     liquid/consdef.cmx typing/common.cmx utils/clflags.cmx \
     liquid/builtins.cmx typing/btype.cmx utils/bstats.cmx \
-    parsing/asttypes.cmi liquid/qualifymod.cmi 
+    parsing/asttypes.cmi liquid/qualifymod.cmi
 liquid/theoremProver.cmo: liquid/theoremProverZ3.cmo typing/predicate.cmi \
-    utils/misc.cmi external/misc/_build/constants.cmo utils/clflags.cmi \
-    utils/bstats.cmi 
+    external/misc/_build/fixMisc.cmo external/misc/_build/constants.cmo \
+    utils/clflags.cmi utils/bstats.cmi
 liquid/theoremProver.cmx: liquid/theoremProverZ3.cmx typing/predicate.cmx \
-    utils/misc.cmi external/misc/_build/constants.cmx utils/clflags.cmx \
-    utils/bstats.cmx 
+    external/misc/_build/fixMisc.cmx external/misc/_build/constants.cmx \
+    utils/clflags.cmx utils/bstats.cmx
 liquid/theoremProverZ3.cmo: external/z3/ocaml/z3.cmi typing/predicate.cmi \
     typing/predef.cmi typing/path.cmi parsing/parsetree.cmi \
-    utils/miscutil.cmo utils/misc.cmi liquid/liqenv.cmo typing/ident.cmi \
-    liquid/frame.cmi typing/common.cmo liquid/builtins.cmo utils/bstats.cmi 
+    utils/miscutil.cmo liquid/liqenv.cmo typing/ident.cmi liquid/frame.cmi \
+    external/misc/_build/fixMisc.cmo typing/common.cmo liquid/builtins.cmo \
+    utils/bstats.cmi
 liquid/theoremProverZ3.cmx: external/z3/ocaml/z3.cmx typing/predicate.cmx \
     typing/predef.cmx typing/path.cmx parsing/parsetree.cmi \
-    utils/miscutil.cmx utils/misc.cmi liquid/liqenv.cmx typing/ident.cmx \
-    liquid/frame.cmx typing/common.cmx liquid/builtins.cmx utils/bstats.cmx 
+    utils/miscutil.cmx liquid/liqenv.cmx typing/ident.cmx liquid/frame.cmx \
+    external/misc/_build/fixMisc.cmx typing/common.cmx liquid/builtins.cmx \
+    utils/bstats.cmx
 liquid/wellformed.cmo: liquid/theoremProverZ3.cmo typing/predicate.cmi \
     typing/path.cmi liquid/liqenv.cmo liquid/frame.cmi liquid/builtins.cmo \
-    utils/bstats.cmi liquid/wellformed.cmi 
+    utils/bstats.cmi liquid/wellformed.cmi
 liquid/wellformed.cmx: liquid/theoremProverZ3.cmx typing/predicate.cmx \
     typing/path.cmx liquid/liqenv.cmx liquid/frame.cmx liquid/builtins.cmx \
-    utils/bstats.cmx liquid/wellformed.cmi 
+    utils/bstats.cmx liquid/wellformed.cmi

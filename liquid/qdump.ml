@@ -103,7 +103,7 @@ let dump_default_qualifiers (str, env, menv, ifenv) deps qname =
   let mnms = snd (List.split (M.filter_names menv)) in
   let np n p = P.Atom(P.Var vid, P.Eq, P.FunApp(Path.mk_ident n, [P.Var (Path.mk_ident "_")])) in 
   (* TODO: instead of ids just write mvars -- change qs to patterns *)
-  let mnms = Misc.tflap2 (mnms, ids) np in
+  let mnms = FixMisc.tflap2 (mnms, ids) np in
   let cstrs = M.filter_cstrs menv in
   let pv vs = List.map (function Some v -> Some (P.Var v) | None -> None) vs in
   let mexprs = List.map (fun (a, (b, c)) -> (M.mk_pred vid (pv b) (a, b, c))) cstrs in
@@ -112,7 +112,7 @@ let dump_default_qualifiers (str, env, menv, ifenv) deps qname =
  
   let conj r l = List.rev_append (F.refinement_conjuncts (fun _ -> []) (P.Var vid) r) l in
   let fpreds = Le.flaplist (fun _ f -> F.refinement_fold conj [] f) ifenv in
-  let fpreds = List.map generalize_pred (Misc.flap P.conjuncts fpreds) in
+  let fpreds = List.map generalize_pred (FixMisc.flap P.conjuncts fpreds) in
   let fqs = List.fold_left (fun q e -> add ("MLQ", "_V", e) q) QS.empty fpreds in
 
   let initqs = add ("FALSE", "_V", P.Atom(P.PInt(1), P.Eq, P.PInt(0))) QS.empty in

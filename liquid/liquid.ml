@@ -29,7 +29,7 @@ open Types
 open Clflags
 open Gc
 
-open Misc.Ops
+open FixMisc.Ops
 
 module F   = Frame
 module MLQ = Mlqmod
@@ -54,7 +54,7 @@ let init_path () =
     else !Clflags.include_dirs in
   let exp_dirs =
     List.map (expand_directory Config.standard_library) dirs in
-  load_path := "" :: "./theories/" :: List.rev_append exp_dirs (Clflags.std_include_dir ());
+  load_path := "" :: (*"./theories/" ::*) List.rev_append exp_dirs (Clflags.std_include_dir ());
   Env.reset_cache ()
 
 let initial_env () =
@@ -86,7 +86,7 @@ let load_qualfile ppf qualfile =
 let load_dep_mlqfiles bname deps env fenv mlqenv =
   let pathnames = !Config.load_path in 
   let inames = List.map (fun s -> ((String.lowercase s) ^ ".mlq", s)) deps in
-  let inames = Misc.sort_and_compact inames in
+  let inames = FixMisc.sort_and_compact inames in
   let f (s, d) pns =
     let p = try Some (List.find (fun p -> Sys.file_exists (p ^ "/" ^ s)) pns)
       with Not_found -> Co.cprintf Co.ol_warn_mlqs "@[WARNING:@ could@ not@ find@ %s@.@]" s; None in
@@ -94,7 +94,7 @@ let load_dep_mlqfiles bname deps env fenv mlqenv =
       | Some p -> Some (Pparse.file std_formatter (p ^ "/" ^ s) Parse.liquid_interface Config.ast_impl_magic_number, d)
       | None -> None in
   let mlqs = List.rev_map (fun xd -> f xd pathnames) inames in 
-  let mlqs = Misc.maybe_list mlqs in
+  let mlqs = FixMisc.maybe_list mlqs in
     MLQ.load_dep_sigs env fenv mlqs
 
 let dump_summary bname (str, env, menv, ifenv, fenv) qname = 
@@ -154,8 +154,8 @@ let process_sourcefile env fenv fname =
     let (str, env, fenv)      = load_sourcefile std_formatter env fenv fname in
     let fenv                  = List.fold_left (add_uninterpreted_constructors env) fenv (Env.types env) in
     let (env, menv, fenv, mlqenv) = MLQ.load_local_sig env fenv vals in
-      if Misc.maybe_bool !summarize then
-        dump_summary bname (str, env, menv, mlqenv, fenv) (Misc.maybe !summarize)
+      if FixMisc.maybe_bool !summarize then
+        dump_summary bname (str, env, menv, mlqenv, fenv) (FixMisc.maybe !summarize)
       else
         let (deps, consts, tyquals)  = load_qualfile std_formatter qname in
         let (env, menv', fenv, _)    = load_dep_mlqfiles bname deps env fenv mlqenv in

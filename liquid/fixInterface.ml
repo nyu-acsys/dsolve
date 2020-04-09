@@ -22,7 +22,7 @@
  *)
 
 
-module IM = Misc.IntMap
+module IM = FixMisc.IntMap
 module Le = Liqenv
 module Cd = Consdef
 
@@ -32,7 +32,7 @@ module F  = Frame
 module Cf = FixConstraint
 module So = Ast.Sort
 module Sy = Ast.Symbol
-module Q  = Ast.Qualifier
+module Q  = Qualifier
 module SM = Ast.Symbol.SMap
 module Su = Ast.Subst
 
@@ -40,7 +40,7 @@ module PA  = PredAbs
 module SPA = Solve.Make (PA)
 
 
-open Misc.Ops
+open FixMisc.Ops
 
 (*****************************************************************************)
 (***************************** Paths and Symbols *****************************)
@@ -50,7 +50,7 @@ let str_to_path = Hashtbl.create 37
 let path_to_str = Hashtbl.create 37
 
 let str_of_path p =
-  Misc.do_bimemo path_to_str str_to_path Path.unique_name p p
+  FixMisc.do_bimemo path_to_str str_to_path Path.unique_name p p
 let sy_of_path p = Sy.of_string (str_of_path p)
 
 let sy_of_qvar k =
@@ -265,7 +265,7 @@ let refas_of_refinement r =
   let p  = r |> Cd.refinement_preds (fun _ -> []) (P.Var dvv) 
              |> (P.big_and <+> f_of_dpred) in
   let ks = r |> List.map  (fun (s, (_,ks)) -> (sub_of_dsubs s, List.map sy_of_qvar ks))
-             |> Misc.flap (fun (s, ks) -> List.map (fun k -> Cf.Kvar (s, k)) ks) in
+             |> FixMisc.flap (fun (s, ks) -> List.map (fun k -> Cf.Kvar (s, k)) ks) in
   (Cf.Conc p) :: ks
 
 let reft_of_single_refinement t sr =
@@ -358,7 +358,7 @@ let f_of_dsubcon vvt fmax_envt = function
 
 let f_of_dsubcons fmax_envt cs =
   cs |> List.map (fun (vvt, _, c) -> f_of_dsubcon vvt fmax_envt c)
-     |> Misc.maybe_list
+     |> FixMisc.maybe_list
 
 let wf_of_dwfcon = function
   | fr, _, Cd.WFRef (env, r, id) -> 
@@ -389,7 +389,7 @@ let d_of_fsoln soln =
   (* TODO: Update with new qualifier/solution definition
   |> SM.fold begin fun k ps s -> 
       ps |> List.map (fun p -> (Path.mk_ident "pred", dvv, d_of_fpred p))
-         |> Misc.flip (IM.add (qvar_of_sy k)) s
+         |> FixMisc.flip (IM.add (qvar_of_sy k)) s
      end soln
   *) 
   |> Cd.sol_of_solmap
@@ -401,8 +401,8 @@ let d_of_fsoln soln =
 (* API *)
 let solver fname cs s =
   (* translate to fixpoint *)
-  let fcs  = cs |> Misc.map_partial (function (_, _, Cd.SubRef (c,_,_,_,_,_)) -> Some c | _ -> None) in
-  let fwfs = cs |> Misc.map_partial (function (fr, _, Cd.WFRef (env,r,id)) ->
+  let fcs  = cs |> FixMisc.map_partial (function (_, _, Cd.SubRef (c,_,_,_,_,_)) -> Some c | _ -> None) in
+  let fwfs = cs |> FixMisc.map_partial (function (fr, _, Cd.WFRef (env,r,id)) ->
     Some (make_wf env fr r id) | _ -> None) |> Cf.add_wf_ids in
   let s    = s >> Consdef.Sol.dump "fixInterface.solver" |> f_of_dsoln in
   (* let _    = Format.printf "@[InitSoln:@\n%a@]" FixSolution.print s in *)
@@ -410,7 +410,7 @@ let solver fname cs s =
   let me,s = SPA.create (FixConfig.create_raw [] SM.empty [] 0 [] fcs fwfs [] empty_soln) (Some s) in
   let bn   = Miscutil.chop_extension_if_any fname in
   let _    = SPA.save (bn ^ ".ml.in.fq") me s in
-  let s,_  = SPA.solve me s in
+  let s,_,_  = SPA.solve me s in
   (* let _    = Format.printf "@[FinSoln:@\n%a@]" FixSolution.print s in *)
   let _    = SPA.save (bn ^ ".ml.out.fq") me s in
   (* translate to dsolve *)

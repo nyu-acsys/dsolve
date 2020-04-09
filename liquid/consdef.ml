@@ -25,12 +25,12 @@ module Co  = Common
 module P   = Predicate
 module F   = Frame
 module Le  = Liqenv
-module IM  = Misc.IntMap
+module IM  = FixMisc.IntMap
 module C   = Constants
-module Q   = Qualifier
+module Q   = Lqualifier
 open Format
 open Wellformed
-open Misc.Ops
+open FixMisc.Ops
 
 module Sol = struct
   include Hashtbl.Make(struct
@@ -39,7 +39,7 @@ module Sol = struct
                          let equal = (=)
                        end)
 
-  type s = Qualifier.t list t
+  type s = Lqualifier.t list t
 
   let size s =
     fold (fun _ qs x -> (+) x (List.length qs)) s 0
@@ -83,7 +83,7 @@ type refinement_constraint =
   | WFRef of F.t Le.t * F.simple_refinement * (subref_id option)
 
 (**************************************************************)
-(***************** Misc. Constants / Accessors ****************)
+(***************** FixMisc. Constants / Accessors ****************)
 (**************************************************************)
 
 let fresh_fc_id = 
@@ -119,7 +119,7 @@ let is_wfframe_constraint = function
   WFFrame _ -> true | _ -> false
 
 let solution_map s k = 
-  Misc.do_catch 
+  FixMisc.do_catch 
     (Printf.sprintf "ERROR: solution_map couldn't find: k%d" k)
     (Sol.find s) k  
 
@@ -138,5 +138,5 @@ let refinement_preds sm qexpr r =
 let environment_preds sm env = 
   List.flatten (Le.maplist (fun v r -> refinement_preds sm (P.Var v) r) env)
 
-let sol_of_solmap (soln: Qualifier.t list IM.t) =
+let sol_of_solmap (soln: Lqualifier.t list IM.t) =
   Sol.create 108 >> (fun s -> IM.iter (fun k qs -> Sol.replace s k qs) soln)

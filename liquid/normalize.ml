@@ -25,7 +25,7 @@ open Parsetree
 open Asttypes
 open Format
 
-open Misc.Ops
+open FixMisc.Ops
 
 module C = Common
 
@@ -153,7 +153,7 @@ let rec expand_or_pats p =
     | Ppat_alias (p', x)              -> p' |> expand_or_pats |>: fun p' -> {p with ppat_desc = Ppat_alias (p', x)}
     | Ppat_constraint (p', t)         -> p' |> expand_or_pats |>: fun p' -> {p with ppat_desc = Ppat_constraint (p', t)}
     | Ppat_or (p1, p2)                -> expand_or_pats p1 ++ expand_or_pats p2
-    | Ppat_tuple (pl)                 -> pl |>: expand_or_pats |> Misc.product |>: (List.rev <+> fun pl -> {p with ppat_desc = Ppat_tuple (pl)})
+    | Ppat_tuple (pl)                 -> pl |>: expand_or_pats |> FixMisc.product |>: (List.rev <+> fun pl -> {p with ppat_desc = Ppat_tuple (pl)})
     | Ppat_construct (id, Some p', b) -> p' |> expand_or_pats |>: fun p' -> {p with ppat_desc = Ppat_construct (id, Some p', b)}
     | _                               -> assert false
 

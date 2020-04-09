@@ -49,7 +49,7 @@ TYPING=typing/unused_var.cmo typing/ident.cmo typing/path.cmo \
   typing/qualgen.cmo \
   typing/typemod.cmo
 
-LIQUID=liquid/liqenv.cmo liquid/qualifier.cmo liquid/pattern.cmo \
+LIQUID=liquid/liqenv.cmo liquid/lqualifier.cmo liquid/pattern.cmo \
        liquid/frame.cmo liquid/qualdecl.cmo liquid/builtins.cmo \
        liquid/message.cmo liquid/theoremProverZ3.cmo \
        liquid/theoremProver.cmo liquid/wellformed.cmo \
@@ -70,7 +70,7 @@ liquid.byte: $(LIQOBJS)
 	$(CAMLC) $(LINKFLAGS) -custom -o liquid.byte str.cma unix.cma nums.cma graph.cma $(LIQOBJS)
 
 liquid.opt: $(LIQOBJS:.cmo=.cmx) fix.cmxa
-	$(CAMLOPT) $(LINKFLAGS) -o liquid.opt $(LIBDIR)/libcamlidl.a str.cmxa unix.cmxa nums.cmxa z3.cmxa graph.cmxa fix.cmxa $(LIQOBJS:.cmo=.cmx)
+	$(CAMLOPT) $(LINKFLAGS) -o liquid.opt $(LIBDIR)/../camlidl/libcamlidl.a str.cmxa unix.cmxa nums.cmxa z3.cmxa graph.cmxa fix.cmxa $(LIQOBJS:.cmo=.cmx)
 
 
 ##liquid.opt: $(LIQOBJS:.cmo=.cmx)
@@ -84,7 +84,7 @@ tests:
 
 .PHONY: theories
 theories: coldstart
-	
+
 
 depend: beforedepend
 	(for d in utils parsing typing liquid; \

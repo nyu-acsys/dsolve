@@ -24,7 +24,7 @@
 module Sol : sig
   include Hashtbl.S with type key = Frame.qvar
 
-  type s = Qualifier.t list t
+  type s = Lqualifier.t list t
   val size : s -> int
   val dump : string -> s -> unit
 end
@@ -56,11 +56,11 @@ and origin =
   | Cstr of labeled_constraint
 
 val fresh_fc_id : unit -> fc_id 
-val sol_of_solmap: Qualifier.t list Misc.IntMap.t -> Qualifier.t list Sol.t
+val sol_of_solmap: Lqualifier.t list FixMisc.IntMap.t -> Lqualifier.t list Sol.t
 val solution_map: 'a Sol.t -> Frame.qvar -> 'a 
 val guard_predicate: guard_t -> Predicate.t
-val environment_preds: (Frame.qvar -> Qualifier.t list) -> Frame.refinement Liqenv.t -> Predicate.t list
-val refinement_preds: (Frame.qvar -> Qualifier.t list) -> Predicate.pexpr -> Frame.refinement -> Predicate.t list
+val environment_preds: (Frame.qvar -> Lqualifier.t list) -> Frame.refinement Liqenv.t -> Predicate.t list
+val refinement_preds: (Frame.qvar -> Lqualifier.t list) -> Predicate.pexpr -> Frame.refinement -> Predicate.t list
 val sref_map: (Frame.simple_refinement -> 'a) -> Frame.refinement -> 'a list
 
 val qual_test_var: Path.t

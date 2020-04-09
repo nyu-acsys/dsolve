@@ -30,5 +30,5 @@ val make_t: Frame.t Liqenv.t ->
 
 val solver: string ->
             (Frame.t * Consdef.labeled_constraint * Consdef.refinement_constraint) list -> 
-            Qualifier.t list Consdef.Sol.t -> 
-            Qualifier.t list Consdef.Sol.t
+            Lqualifier.t list Consdef.Sol.t -> 
+            Lqualifier.t list Consdef.Sol.t

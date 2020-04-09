@@ -383,7 +383,7 @@ and exp_funs_unexp = function
   | Ite (t, e1, e2) -> ([e1; e2], funs t)
 
 and exp_funs e =
-  Misc.expand exp_funs_unexp [e] []
+  FixMisc.expand exp_funs_unexp [e] []
 
 and var_unexp p = unexp exp_vars p
 and funs_unexp p = unexp exp_funs p
@@ -394,7 +394,7 @@ and vars e =
     !vs
 
 and funs e =
-  Misc.expand funs_unexp [e] []
+  FixMisc.expand funs_unexp [e] []
 
 let transl_op = function
   | Predexp_plus -> Plus
@@ -416,7 +416,7 @@ let conjuncts_unexp = function
   | p -> ([], [p])
 
 let conjuncts p = 
-  Misc.expand conjuncts_unexp [p] []
+  FixMisc.expand conjuncts_unexp [p] []
 
 let is_taut = function
   | Atom(e1, Eq, e2) -> e1 = e2

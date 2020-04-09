@@ -30,14 +30,14 @@ type substitution = Path.t * Predicate.pexpr
 type dep_sub      = string * string
 
 type qvar       = int
-type refexpr    = substitution list * (Qualifier.t list * qvar list)
+type refexpr    = substitution list * (Lqualifier.t list * qvar list)
 type refinement = refexpr list
 
 type 'a prerecref = 'a list list
 type recref       = refinement prerecref
 
 type qexpr =
-  | Qconst of Qualifier.t
+  | Qconst of Lqualifier.t
   | Qvar   of qvar
 
 type simple_refinement = substitution list * qexpr
@@ -136,7 +136,7 @@ val params_ids         : param list -> Ident.t list
 (******************************************************************************)
 
 val map_refexprs   : (refexpr -> refexpr) -> t -> t
-val map_qualifiers : (Qualifier.t -> Qualifier.t) -> t -> t
+val map_qualifiers : (Lqualifier.t -> Lqualifier.t) -> t -> t
 val iter_labels    : (Ident.t -> unit) -> t -> unit
 
 (******************************************************************************)
@@ -144,11 +144,11 @@ val iter_labels    : (Ident.t -> unit) -> t -> unit
 (******************************************************************************)
 
 val empty_refinement     : refinement
-val const_refinement     : Qualifier.t list -> refinement
-val mk_refinement        : substitution list -> Qualifier.t list -> qvar list -> refinement
-val refinement_conjuncts : (qvar -> Qualifier.t list) -> Predicate.pexpr -> refinement -> Predicate.t list
-val refinement_predicate : (qvar -> Qualifier.t list) -> Predicate.pexpr -> refinement -> Predicate.t
-val apply_solution       : (qvar -> Qualifier.t list) -> t -> t
+val const_refinement     : Lqualifier.t list -> refinement
+val mk_refinement        : substitution list -> Lqualifier.t list -> qvar list -> refinement
+val refinement_conjuncts : (qvar -> Lqualifier.t list) -> Predicate.pexpr -> refinement -> Predicate.t list
+val refinement_predicate : (qvar -> Lqualifier.t list) -> Predicate.pexpr -> refinement -> Predicate.t
+val apply_solution       : (qvar -> Lqualifier.t list) -> t -> t
 val refinement_qvars     : refinement -> qvar list
 val refexpr_apply_subs   : substitution list -> refexpr -> refexpr
 val apply_subs           : substitution list -> t -> t
@@ -162,7 +162,7 @@ val ref_to_simples       : refinement -> (simple_refinement list * simple_refine
 val ref_of_simple        : simple_refinement -> refinement
 val refinement_fold      : (refinement -> 'a -> 'a) -> 'a -> t -> 'a
 val refinement_iter      : (refinement -> unit) -> t -> unit
-val conjuncts            : (qvar -> Qualifier.t list) -> Predicate.pexpr -> t -> Predicate.t list
+val conjuncts            : (qvar -> Lqualifier.t list) -> Predicate.pexpr -> t -> Predicate.t list
 
 (******************************************************************************)
 (*********************************** Binders **********************************)

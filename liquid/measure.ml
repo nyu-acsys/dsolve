@@ -8,7 +8,7 @@ module F  = Frame
 module Le = Liqenv
 module Qd = Qualdecl
 
-open Misc.Ops
+open FixMisc.Ops
 
 type mdef = (string * P.t_or_pexpr) 
 type m = (constructor_tag * Path.t option list * mdef) list 
@@ -20,10 +20,10 @@ type meas_entry =
   | Mname of string * string
 
 let filter_cstrs es =
-  Misc.maybe_list (List.map (function Mcstr p -> Some p | _ -> None) es)
+  FixMisc.maybe_list (List.map (function Mcstr p -> Some p | _ -> None) es)
 
 let filter_names es =
-  Misc.maybe_list (List.map (function Mname (n, mn) -> Some (n, mn) | _ -> None ) es)
+  FixMisc.maybe_list (List.map (function Mname (n, mn) -> Some (n, mn) | _ -> None ) es)
 
 let (empty: t) = Le.empty
 
@@ -43,15 +43,15 @@ let sum_path = function
   | F.Finductive (p, _, _, _, _) -> p
   | _                            -> assert false
 
-let rewrite_pred_funs subf r = Misc.app_snd (P.pexp_map_funs subf) r
+let rewrite_pred_funs subf r = FixMisc.app_snd (P.pexp_map_funs subf) r
 
-let rewrite_pred_vars subf r = Misc.app_snd (P.pexp_map_vars (fun p -> P.Var (subf p))) r
+let rewrite_pred_vars subf r = FixMisc.app_snd (P.pexp_map_vars (fun p -> P.Var (subf p))) r
 
 let rewrite_pred subvars subfuns r = rewrite_pred_funs subfuns (rewrite_pred_vars subvars r)
 
 let transl_desc mlenv (c, (ps, r)) =
   try
-    let _  = if ps |> Misc.maybe_list |> Misc.is_unique |> not then failwith "Measure args not unique" in
+    let _  = if ps |> FixMisc.maybe_list |> FixMisc.is_unique |> not then failwith "Measure args not unique" in
     let c  = Env.lookup_constructor (Longident.parse c) mlenv in
     let _  = if List.length ps != c.cstr_arity then failwith "Wrong number of measure args" in
     let fr = F.fresh_without_vars mlenv c.cstr_res in
@@ -116,13 +116,13 @@ let mk_single_gd menv (vp, p, tag, ps) =
     None
 
 let mk_guard env vp cpats =
-  let preds = Misc.map_partial (mk_single_gd !bms) cpats in
-  let preds = Misc.flap P.conjuncts preds in
+  let preds = FixMisc.map_partial (mk_single_gd !bms) cpats in
+  let preds = FixMisc.flap P.conjuncts preds in
   let preds = List.filter (Wellformed.pred_well_formed env) preds in
     P.big_and preds
 
 (* assumes no subs *)
-let rewrite_refexpr f (a, (qs, b)) = (a, (List.map (Qualifier.map_pred f) qs, b))
+let rewrite_refexpr f (a, (qs, b)) = (a, (List.map (Lqualifier.map_pred f) qs, b))
 
 let map_pred_funs f (v, p) =
   (v, P.map_funs f p)
@@ -140,7 +140,7 @@ let transl_frame names f =
   F.map_refexprs (rewrite_refexpr (transl_pred names)) f
 
 let qualpat_map_predpat f q =
-  {q with Parsetree.pqual_pat_desc = Misc.app_thd3 f q.Parsetree.pqual_pat_desc}
+  {q with Parsetree.pqual_pat_desc = FixMisc.app_thd3 f q.Parsetree.pqual_pat_desc}
 
 let transl_qualpat names =
   (Common.l_to_s <+> Common.sub_from_list names <+> Common.s_to_l)
@@ -153,8 +153,8 @@ let pprint_menv ppf menv =
 
 let proc_premeas env menv fenv ifenv quals =
   let (mnames, mcstrs) = (filter_names menv, filter_cstrs menv) in
-  let subs = Misc.list_assoc_flip mnames in
-  let quals = List.rev_map (Misc.app_snd (transl_qualpat subs)) quals in
+  let subs = FixMisc.list_assoc_flip mnames in
+  let quals = List.rev_map (FixMisc.app_snd (transl_qualpat subs)) quals in
   let subpaths = List.map (fun (x, y) -> (Common.lookup_path x env, get_path y)) subs in
   let fenv = Le.map (transl_frame subpaths) fenv in
   let ifenv = Le.map (transl_frame subpaths) ifenv in

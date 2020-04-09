@@ -30,7 +30,7 @@ open Consdef
 open Longident
 open Location
 open Format
-open Misc.Ops
+open FixMisc.Ops
 
 module P        = Predicate
 module C        = Common
@@ -519,7 +519,7 @@ let qualify_implementation sourcefile fenv' ifenv env qs consts str =
   let _ = reset_framelog () in
   constrain_structure env fenv' str
   |> (fun (fenv, cs) -> [cs; get_nr_cstrs env fenv; get_unlabel_cstrs env fenv ifenv])
-  |> Misc.flatten 
+  |> FixMisc.flatten 
   >> pre_solve sourcefile
   |> Constraint.solve sourcefile ignore env consts qs
   >> (fst <+> post_solve sourcefile)
